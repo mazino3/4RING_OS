@@ -1,0 +1,9 @@
+SECTIONS
+{
+  . = 0x7E5000;
+  .dev_txt		: { *(.text) }
+  .dev_rodata	: { *(.rodata) }
+  .dev_data		: { *(.data) }
+  .dev_bss		: { *(.bss) *(COMMON) }
+/* .comment	: { *(.comment) } */
+}
