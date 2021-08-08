@@ -1,5 +1,7 @@
 # [4RING_OS](https://www.isoux.org/blog/index.php?article2/4ring_os)
 
+[![Downloads](https://img.shields.io/github/downloads/isoux/4RING_OS/total)](https://github.com/isoux/4RING_OS/releases/latest)
+
 Hobby operating system for Intel processors from 386 and up. Engaged on all 4 rings with call gates, paging, segmentation and almost all hardware capabilities provided by this generation of processors.
 
 - [Motivation](https://www.isoux.org/blog/index.php?article3/motivation)
