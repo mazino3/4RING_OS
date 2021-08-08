@@ -3,7 +3,7 @@
  *
  * load_grub.c
  *
- * Multiboot load procedures for GRUB version 2
+ * Multiboot load procedures for GRUB version 1
  *
  * The GRUB loader uses different selectors for code (0x10) and data
  * on its gdt table, than mine (0x08). This is reason for reinitialize
