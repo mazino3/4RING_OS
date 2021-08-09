@@ -337,7 +337,7 @@ __asm{
 
 __naked void Keyb_int(void) {
 __asm{
-	nop								// for debug reaseons on bochs
+	nop								// for debugging reasons on Bochs
 	mov [tss_devs_irq.eax], KEY_INT // put irq request at task.eax structure
 	lcall TSS_DEVS_IRQ,0			// call task to be nested where IF is clear
 	iretd							// return from nested task
