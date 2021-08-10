@@ -16,8 +16,8 @@ ifeq ($(BOOT_WAY), GRUB2)
 	ISO = make_iso
 	#IMG = del_img
 else
-	#ISO = del_iso
-	IMG = make_img
+	ISO = del_iso
+	#IMG = make_img
 endif
 
 .c.o:

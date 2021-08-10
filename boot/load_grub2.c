@@ -9,10 +9,6 @@
  * on its gdt table, than mine (0x08). This is reason for reinitialize
  * gdt descriptor selectors for CS to be 0x08 and DS to be 0x10.
  *
- * At procedure: reverse_val (line 112), the instruction BSWAP
- * determines that for now is supported 486 and up processors.
- * For 386 is need to write properly byte swapping procedure.
- *
  * (C) Copyright 2021 Isa <isa@isoux.org>
  */
 
@@ -109,8 +105,21 @@ __naked void load(void) {
 __inline_ static u_int reverse_val(u_char * val) {
   __asm{
 	mov eax, val
-	bswap eax
   }
+#if (MARCH == i386)
+  __asm{
+  	xor ebx,ebx
+  	mov bx, ax
+  	ror bx, 8
+  	ror ebx, 16
+  	ror eax, 16
+  	ror ax, 8
+  	mov bx, ax
+  	mov eax,ebx
+    }
+#else
+  __asm{bswap eax}
+#endif
 }
 
 void load_mods(u_int info_struc) {

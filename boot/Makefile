@@ -9,7 +9,7 @@ include ../defines.mk
 
 CFLAGS = -m32 -march=$(ARCH) -c -Wall -fomit-frame-pointer -finline-functions -nostdinc \
 	-fasm-blocks -masm=intel -fasm -fno-builtin -I ../include -fdeclspec  -fpack-struct \
-	-D$(BOOT_WAY)
+	-DMARCH=$(ARCH) -D$(BOOT_WAY)
 
 ifeq ($(BOOT_WAY), GRUB2)
 	LOAD_C = load_grub2.c

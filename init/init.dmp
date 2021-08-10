@@ -1,0 +1,121 @@
+
+init.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <init_32>:
+   0:	b8 10 00 00 00       	mov    eax,0x10
+   5:	66 8e d8             	mov    ds,ax
+   8:	66 8e c0             	mov    es,ax
+   b:	66 8e e0             	mov    fs,ax
+   e:	66 8e e8             	mov    gs,ax
+  11:	0f b2 25 00 00 00 00 	lss    esp,FWORD PTR ds:0x0
+  18:	e9 03 00 00 00       	jmp    20 <setup_descriptors>
+  1d:	90                   	nop
+  1e:	90                   	nop
+  1f:	90                   	nop
+
+00000020 <setup_descriptors>:
+  20:	8b 0d 00 00 00 00    	mov    ecx,DWORD PTR ds:0x0
+  26:	8d 05 00 00 00 00    	lea    eax,ds:0x0
+  2c:	bf 48 00 00 00       	mov    edi,0x48
+  31:	e8 fc ff ff ff       	call   32 <setup_descriptors+0x12>
+  36:	8d 05 00 00 00 00    	lea    eax,ds:0x0
+  3c:	bf 50 00 00 00       	mov    edi,0x50
+  41:	e8 fc ff ff ff       	call   42 <setup_descriptors+0x22>
+  46:	8d 05 00 00 00 00    	lea    eax,ds:0x0
+  4c:	bf 00 01 00 00       	mov    edi,0x100
+  51:	e8 fc ff ff ff       	call   52 <setup_descriptors+0x32>
+  56:	e8 fc ff ff ff       	call   57 <setup_descriptors+0x37>
+  5b:	e8 fc ff ff ff       	call   5c <setup_descriptors+0x3c>
+  60:	e8 fc ff ff ff       	call   61 <setup_descriptors+0x41>
+  65:	b8 10 00 00 00       	mov    eax,0x10
+  6a:	66 8e d8             	mov    ds,ax
+  6d:	66 8e c0             	mov    es,ax
+  70:	66 8e e0             	mov    fs,ax
+  73:	66 8e e8             	mov    gs,ax
+  76:	0f b2 25 00 00 00 00 	lss    esp,FWORD PTR ds:0x0
+  7d:	e8 fc ff ff ff       	call   7e <setup_descriptors+0x5e>
+  82:	e8 fc ff ff ff       	call   83 <setup_descriptors+0x63>
+  87:	31 c0                	xor    eax,eax
+  89:	40                   	inc    eax
+  8a:	a3 00 00 00 00       	mov    ds:0x0,eax
+  8f:	39 05 00 00 10 00    	cmp    DWORD PTR ds:0x100000,eax
+  95:	0f 84 ee ff ff ff    	je     89 <setup_descriptors+0x69>
+  9b:	0f 20 c0             	mov    eax,cr0
+  9e:	25 11 00 00 80       	and    eax,0x80000011
+  a3:	a9 10 00 00 00       	test   eax,0x10
+  a8:	0f 85 03 00 00 00    	jne    b1 <setup_descriptors+0x91>
+  ae:	83 c8 04             	or     eax,0x4
+  b1:	0f 22 c0             	mov    cr0,eax
+  b4:	b8 34 02 00 00       	mov    eax,0x234
+  b9:	66 a3 00 80 0b 00    	mov    ds:0xb8000,ax
+  bf:	e9 fc ff ff ff       	jmp    c0 <setup_descriptors+0xa0>
+  c4:	90                   	nop
+  c5:	90                   	nop
+  c6:	90                   	nop
+  c7:	90                   	nop
+  c8:	90                   	nop
+  c9:	90                   	nop
+  ca:	90                   	nop
+  cb:	90                   	nop
+  cc:	90                   	nop
+  cd:	90                   	nop
+  ce:	90                   	nop
+  cf:	90                   	nop
+
+000000d0 <set_tss_desc>:
+  d0:	01 cf                	add    edi,ecx
+  d2:	66 89 47 02          	mov    WORD PTR [edi+0x2],ax
+  d6:	c1 c8 10             	ror    eax,0x10
+  d9:	88 47 04             	mov    BYTE PTR [edi+0x4],al
+  dc:	88 67 07             	mov    BYTE PTR [edi+0x7],ah
+  df:	c3                   	ret    
+
+000000e0 <set_call_gate>:
+  e0:	01 cf                	add    edi,ecx
+  e2:	66 89 07             	mov    WORD PTR [edi],ax
+  e5:	c1 c8 10             	ror    eax,0x10
+  e8:	66 89 47 06          	mov    WORD PTR [edi+0x6],ax
+  ec:	c3                   	ret    
+
+Disassembly of section .data:
+
+00000000 <stack_start>:
+   0:	00 04 00             	add    BYTE PTR [eax+eax*1],al
+   3:	00 10                	add    BYTE PTR [eax],dl
+   5:	00 00                	add    BYTE PTR [eax],al
+   7:	00                 	add    BYTE PTR [eax],al
+
+00000008 <p_gdt>:
+   8:	00 00                	add    BYTE PTR [eax],al
+   a:	00 00                	add    BYTE PTR [eax],al
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	00 63 6c             	add    BYTE PTR [ebx+0x6c],ah
+   3:	61                   	popa   
+   4:	6e                   	outs   dx,BYTE PTR ds:[esi]
+   5:	67 20 76 65          	and    BYTE PTR [bp+0x65],dh
+   9:	72 73                	jb     7e <setup_descriptors+0x5e>
+   b:	69 6f 6e 20 31 30 2e 	imul   ebp,DWORD PTR [edi+0x6e],0x2e303120
+  12:	30 2e                	xor    BYTE PTR [esi],ch
+  14:	30 2d 34 75 62 75    	xor    BYTE PTR ds:0x75627534,ch
+  1a:	6e                   	outs   dx,BYTE PTR ds:[esi]
+  1b:	74 75                	je     92 <setup_descriptors+0x72>
+  1d:	31 20                	xor    DWORD PTR [eax],esp
+  1f:	00                   	.byte 0x0
+
+Disassembly of section .llvm_addrsig:
+
+00000000 <.llvm_addrsig>:
+   0:	02 0e                	add    cl,BYTE PTR [esi]
+   2:	0b 0a                	or     ecx,DWORD PTR [edx]
+   4:	0d 10 0f 03 0c       	or     eax,0xc030f10
+   9:	04 07                	add    al,0x7
+   b:	11                   	.byte 0x11
+   c:	05                   	.byte 0x5
+   d:	09 12                	or     DWORD PTR [edx],edx
+   f:	08                   	.byte 0x8

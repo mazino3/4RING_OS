@@ -535,7 +535,11 @@ extern struct tty_struct tty_tbl[];
 
 void con_init(void)
 {
+#ifdef GRUB2
+  gotoxy(0,0);
+#else
   gotoxy(0,11);
+#endif
   write_con(&tty_tbl[0]);	// Write initiate message
   set_cursor();
 }
