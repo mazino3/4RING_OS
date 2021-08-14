@@ -57,7 +57,7 @@ __asm{
 
 u_char stack_space[8192] = {0};
 
-/* Argument for Long JMP */
+/* Arguments for Long JMP */
 struct ljmp_args {
 	u_long func_ptr;
 	u_short selector;

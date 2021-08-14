@@ -16,8 +16,8 @@ ifeq ($(BOOT_WAY), GRUB2)
 	ISO = make_iso
 	#IMG = del_img
 else
-	ISO = del_iso
-	#IMG = make_img
+	IMG = make_img
+	#ISO = del_iso
 endif
 
 .c.o:
@@ -89,7 +89,7 @@ bochs_iso_grub2:
 	bochs
 
 qemu_floppy:
-	qemu-system-i386 -drive format=raw,file=/dev/sdX,index=0,if=floppy -m 9M -machine pc-0.13
+	qemu-system-i386 -drive format=raw,file=/dev/sdd,index=0,if=floppy -m 9M -machine pc-0.13
 	
 write_floppy:
 	dd if=tools/GRUB1/grub1.img of=/dev/sdX bs=512 # Be careful with the choice of device!!!
