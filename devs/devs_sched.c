@@ -14,7 +14,7 @@
 #include <sched.h>
 //#include <gates.h>		// for the call_gates
 
-#define TBL_SIZE 100
+#define TBL_SIZE 0xFF
 
 int indx = 0;				// table index
 
