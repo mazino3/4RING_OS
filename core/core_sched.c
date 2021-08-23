@@ -77,7 +77,7 @@ __asm{
 	jne n1
 	  mov ax,0						// then start again from 0
 	n1:
-	  mov byte ptr [sched_ptrs.in_cur_p], al
+	  mov byte ptr [sched_ptrs.in_cur_p], al // increment input cursor ptr
 	  jmp short exit
 	clear:							// CLR_IRQ
 	  mov bl,0
@@ -109,7 +109,8 @@ void sched(void) {
 	  if (cur_ring_task != ring) {
 		cur_ring_task = ring;
 		cg_args.selector = ring_sels[ring];
-		long_jmp();	/* task is switched from FIFO request buffer */
+		long_jmp();
+		/* task is switched from FIFO request buffer to devs_sched_task */
 	  }
   }
 }
