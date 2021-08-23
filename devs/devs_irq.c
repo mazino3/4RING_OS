@@ -38,7 +38,7 @@ __asm{
 	lcall CG_TX_IRQ,0			// call call gate selector sys call
 	mov eax, dword ptr [esp]	// get result from returned call gate func
 	push eax					// push arg on stack
-	call save_ptr				// save given ptr from core_sched ptrs table
+	call save_ptr				// save returned ptr from core_sched ptrs table
 	add esp,0x04				// release arg from stack
 	iretd						// return from dev irq task
 	jmp short start				// task needs endless loop

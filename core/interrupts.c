@@ -61,7 +61,7 @@ void set_timer_interrupt(void) {
 	idt_desc.func = ((int *) & timer_interrupt);	// addr of function
 	idt_desc.selector = CORE_CODE;					// selector at Ring 0
 	idt_desc.dpl = DPL_RING0;
-	/* Followings members are initiated by default for system segment P=1 S=0 */
+	/* The following members are set by default for the sys segment P=1 S=0 */
 	//idt_desc.present = 1;
 	//idt_desc.segment = 0;
 	set_interrupt(); 

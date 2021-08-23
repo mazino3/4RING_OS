@@ -59,7 +59,7 @@ __asm{
 	push eax
 	mov eax,CORE_DATA
 	mov ds,eax
-	mov eax,0x43 // 67 print 'C'
+	mov eax,0x43 // 67 print '4'
 	pop eax
 	pop ds
 	iretd
