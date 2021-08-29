@@ -8,7 +8,7 @@
 CC = clang
 LD = ld -m elf_i386
 ARCH = i486
-CPP	= clang -E -nostdinc -I ../include
+CPP	= $(CC) -E -nostdinc -I ../include
 
 CP := cp
 RM := rm -rf
