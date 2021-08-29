@@ -44,9 +44,10 @@ void devs_sched_task(void) {
 	  	if (i == TBL_SIZE)
 	  	  i = 0;
 	  }
-  }   /* endless loop for task, ovde probaj da uradish schedule_next da se ne
+  }   /* endless loop for task, ovde probaj da uradish force_sched(); da se ne
 	   * vrti uzalud dok ceka timer intr sched
 	   */
+  //force_sched();
 }
 
 /* Save irq to local circular buffer (dev_sched_tbl) */
