@@ -149,7 +149,7 @@ void load_mods(u_int info_struc) {
 		  case 'libs':
 		  	out_addr = LIBS_START;
 		  	break;
-		  case 'user':
+		  case 'usrs':
 		  	out_addr = USERS_START;
 		  	break;
 		  default:

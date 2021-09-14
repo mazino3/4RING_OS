@@ -64,10 +64,9 @@ Linker script and memory map
                 0x00000000007e5720                set_devs_desc
                 0x00000000007e5780                Devs_init
  *fill*         0x00000000007e57a5        0xb 
- .text          0x00000000007e57b0      0x10d devs_sched.o
+ .text          0x00000000007e57b0      0x110 devs_sched.o
                 0x00000000007e57b0                devs_sched_task
                 0x00000000007e5860                save_irq
- *fill*         0x00000000007e58bd        0x3 
  .text          0x00000000007e58c0       0x51 devs_irq.o
                 0x00000000007e58c0                devs_irq_task
  *fill*         0x00000000007e5911        0xf 
@@ -124,25 +123,26 @@ Linker script and memory map
 .igot.plt       0x00000000007e8378        0x0
  .igot.plt      0x00000000007e8378        0x0 keyboard.o
 
-.dev_bss        0x00000000007e8378      0x804
+.dev_bss        0x00000000007e8378      0xd78
  *(.bss)
  .bss           0x00000000007e8378        0x4 keyboard.o
                 0x00000000007e8378                is_none
- .bss           0x00000000007e837c      0x388 devs_sched.o
+ .bss           0x00000000007e837c      0x8fb devs_sched.o
                 0x00000000007e837c                indx
                 0x00000000007e8380                dev_sched_tbl
- .bss           0x00000000007e8704       0x64 console.o
+ *fill*         0x00000000007e8c77        0x1 
+ .bss           0x00000000007e8c78       0x64 console.o
  *(COMMON)
- COMMON         0x00000000007e8768        0x3 keyboard.o
-                0x00000000007e8768                e0
-                0x00000000007e8769                leds
-                0x00000000007e876a                mode
- *fill*         0x00000000007e876b        0x1 
- COMMON         0x00000000007e876c      0x410 devs_task.o
-                0x00000000007e876c                stack_tss_irq_core
-                0x00000000007e886c                stack_tss_irq
-                0x00000000007e8974                stack_tss_sched
-                0x00000000007e8a7c                stack_tss_sched_core
+ COMMON         0x00000000007e8cdc        0x3 keyboard.o
+                0x00000000007e8cdc                e0
+                0x00000000007e8cdd                leds
+                0x00000000007e8cde                mode
+ *fill*         0x00000000007e8cdf        0x1 
+ COMMON         0x00000000007e8ce0      0x410 devs_task.o
+                0x00000000007e8ce0                stack_tss_irq_core
+                0x00000000007e8de0                stack_tss_irq
+                0x00000000007e8ee8                stack_tss_sched
+                0x00000000007e8ff0                stack_tss_sched_core
 LOAD keyboard.o
 LOAD tty.o
 LOAD devs_task.o

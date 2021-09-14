@@ -19,16 +19,18 @@ GDT = core/gdt_mem.bin
 GDT_RAM = gdt_
 DEVS_RAM = devs
 CORE_RAM = core
+USRS_RAM = usrs
 SYS = 4ring_os
 IMG_FILES = img/*
 CFG = boot/grub.cfg
 DEVS = sys_out/devs
 CORE = sys_out/core
+USRS = sys_out/users
 IMG_PATH := img
 ISO_PATH := iso
 BOOT_PATH := $(ISO_PATH)/boot
 GRUB_PATH := $(BOOT_PATH)/grub
 
 # GRUB or GRUB2 : One of these must be defined!
-export BOOT_WAY = GRUB
+export BOOT_WAY = GRUB2
 

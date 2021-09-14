@@ -44,7 +44,8 @@ void devs_sched_task(void) {
 	  	if (i == TBL_SIZE)
 	  	  i = 0;
 	  }
-  }   // endless loop for task
+  }   /* endless loop for task, TODO: try here force_sched();*/
+  //force_sched();
 }
 
 /* Save irq to local circular buffer (dev_sched_tbl) */
