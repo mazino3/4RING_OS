@@ -44,9 +44,7 @@ void devs_sched_task(void) {
 	  	if (i == TBL_SIZE)
 	  	  i = 0;
 	  }
-  }   /* endless loop for task, ovde probaj da uradish force_sched(); da se ne
-	   * vrti uzalud dok ceka timer intr sched
-	   */
+  }   /* endless loop for task, TODO: try here force_sched();*/
   //force_sched();
 }
 

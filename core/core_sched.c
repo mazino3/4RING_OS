@@ -28,10 +28,10 @@ u_char req_buf[REQ_BUF_SIZE] = {0};
  * which contains the schedule procedures at less privileged rings
  */
 u_short ring_sels[] = {	/* indexed rings selectors for schedules tasks */
-	TSS_CORE_SEL,
+	TSS_MAIN_TASK, //TSS_CORE_SEL
 	TSS_DEVS_SCHED,
 	TSS_LIBS_SCHED,
-	TSS_USERS_SCHED
+	TSS_MAIN_TASK //TSS_CORE_SEL //TSS_USERS_SCHED
 };
 
 /* fword argument (6 bytes)  for far call = lcall */
