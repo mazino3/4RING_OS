@@ -12,19 +12,29 @@
 #define _LDT_H
 
 /* SELECTORS FOR LOCAL DESC TABLES */
+/*
+15                                                 3    2        0
++--------------------------------------------------+----+--------+
+|          Index                                   | TI |   RPL  |
++--------------------------------------------------+----+--------+
 
+TI = Table Indicator: 0 = GDT, 1 = LDT
+*/
 // At ring 1
-#define DEVS_IRQ_CODE	0x05
-#define DEVS_IRQ_DATA	0x0d
+#define DEVS_IRQ_CODE	0b0101 //A binary literal = 0x05
+#define DEVS_IRQ_DATA	0b1101 //0x0D
 #define DEVS_SCHED_CODE	0x05
-#define DEVS_SCHED_DATA	0x0d
+#define DEVS_SCHED_DATA	0x0D
 
 // At ring 2
-/* ... */
+#define LIBS_IRQ_CODE	0b0110 //0x06
+#define LIBS_IRQ_DATA	0b1110 //0x0E
+#define LIBS_SCHED_CODE	0x06
+#define LIBS_SCHED_DATA	0x0E
 
 // At ring 3
-#define TASK_CODE  0x07	// TASK_USER_CODE sel.
-#define TASK_DATA  0x0f	// TASK_USER_DATA sel.
+#define TASK_CODE  0x07 //0b0111 TASK_USER_CODE sel.
+#define TASK_DATA  0x0F //0b1111 TASK_USER_DATA sel.
 
 #endif /* _LDT_H */
 
