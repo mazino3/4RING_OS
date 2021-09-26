@@ -18,7 +18,7 @@ c.o:
 	$(CC) $(CFLAGS) -O \
 	-o $*.o $<
 	
-OBJS = gdt.o idt.o timer.o interrupts.o core_sched.o # tasks.o
+OBJS = gdt.o idt.o timer.o interrupts.o core_sched.o paging.o # tasks.o
 	
 core.o: $(OBJS)
 	$(LD) -r -o core.o $(OBJS)
@@ -49,7 +49,6 @@ idt.o: idt.c ../include/typedef.h ../include/gdt.h ../include/idt.h \
 interrupts.o: interrupts.c ../include/typedef.h ../include/idt.h \
   ../include/gates.h ../include/gdt.h ../include/io.h \
   ../include/gas_regs.h ../include/devs/hard_int.h
-tasks.o: tasks.c ../include/typedef.h ../include/gdt.h ../include/ldt.h \
-  ../include/task.h ../include/sys.h ../include/config.h
+paging.o: paging.c
 timer.o: timer.c ../include/typedef.h ../include/gdt.h ../include/idt.h \
   ../include/gates.h
