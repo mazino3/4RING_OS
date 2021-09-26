@@ -18,7 +18,7 @@ all: users.o
 c.o:
 	$(CC) $(CFLAGS) -O -o $*.o $<
 	
-OBJS =  main_task.o
+OBJS =  main_task.o user.o
 	
 users.o: $(OBJS) 
 	$(LD) -T users_ld.scr -Map users.map -M $(OBJS) -o users.o > users.lnk
@@ -32,3 +32,8 @@ dep:
 	sed '/\#\#\# Dependencies/q' < Makefile > tmp_make
 	(for i in *.c;do $(CPP) -M $$i;done) >> tmp_make
 	cp tmp_make Makefile
+	
+# Dependencies
+main_task.o: main_task.c ../include/typedef.h ../include/gdt.h \
+  ../include/ldt.h ../include/task.h ../include/sys.h \
+  ../include/config.h
