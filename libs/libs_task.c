@@ -131,6 +131,4 @@ __asm{
 void Libs_init(long * p_gdt) {
   set_libs_desc(p_gdt);
   set_libs_tasks();
-  //con_init();
-  //setup_libs_ldt_desc();
 }
