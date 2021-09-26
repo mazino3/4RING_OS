@@ -3,6 +3,8 @@
  *
  * sys.h
  *
+ * Definitions for System memory spaces.
+ *
  * (C) Copyright 2021 Isa <isa@isoux.org>
  */
 
@@ -40,13 +42,17 @@
 #define USERS_START (LIBS_START) - (USERS_SIZE)	// 7D3000
 //#define USERS_START 0x100000					// 1Mb
 
+#define SYS_START (USERS_START)  // not confusing, USERS_START is in SYS domain.
+#define SYS_SIZE (MEM_SIZE) - (USERS_START)
+
 #define DEVS_STACK (CORE_START) - 4
 #define LIBS_STACK (DEVS_START) - 4
 #define USERS_STACK (LIBS_START) - 4
 
 #define DEVS_LIMIT ((CORE_START) / 0x1000) - 1
 #define LIBS_LIMIT ((DEVS_START) / 0x1000) - 1
-#define USERS_LIMIT ((LIBS_START) / 0x1000) - 1
+/* Only for the main task in the user space */
+#define USERS_SYS_LIMIT ((LIBS_START) / 0x1000) - 1
 
 #endif /* _SYS_H */
 

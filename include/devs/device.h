@@ -20,7 +20,6 @@
 #define TTY_DEV		5
 #define LP_DEV		1
 #define PIPE_DEV	7
-//#define MEM_DEV	1
 #define BLOK_DEV	10
 #define CHAR_DEV	11
 

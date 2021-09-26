@@ -17,7 +17,7 @@ extern void devs_irq_task(void);
 extern void devs_sched_task(void);
 extern void con_init(void);
 
-void Devs_init(long * p_gdt);
+void devs_init(long * p_gdt);
 
 l_long ldt_irq[2] =	{
 	0x00c0ba0000000000 + DEVS_LIMIT,	// Sel. 0x05 DEVS_IRQ_CODE
@@ -79,7 +79,7 @@ struct stack_ptr p_stack_irq_krn = { & stack_tss_irq_core[64]};
 struct stack_ptr p_stack_sched = { & stack_tss_sched[64]};
 struct stack_ptr p_stack_sched_krn = { & stack_tss_sched_core[64]};
 
-void set_devs_tasks(void) {
+void set_devs_stacks(void) {
 
 	long * p0 = (long *) & devs_irq_task;
 
@@ -128,9 +128,9 @@ __asm{
 	}
 }
 
-void Devs_init(long * p_gdt) {
+void devs_init(long * p_gdt) {
   set_devs_desc(p_gdt);
-  set_devs_tasks();
+  set_devs_stacks();
   con_init();
   //setup_devs_ldt_desc();
 }

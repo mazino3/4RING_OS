@@ -33,8 +33,8 @@ TI = Table Indicator: 0 = GDT, 1 = LDT
 #define LIBS_SCHED_DATA	0x0E
 
 // At ring 3
-#define TASK_CODE  0x07 //0b0111 TASK_USER_CODE sel.
-#define TASK_DATA  0x0F //0b1111 TASK_USER_DATA sel.
+#define TASK_CODE  0x07 //0b0111
+#define TASK_DATA  0x0F //0b1111
 
 #endif /* _LDT_H */
 

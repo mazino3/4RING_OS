@@ -70,11 +70,11 @@ extern long long gdt[];
 #define X 0xD8
 #define X 0xE0
 #define X 0xE8
-#define X 0xF0
 */
 
 /* Data access trough segment registers */
-#define DEVS_ACCES_DATA 0xF8	// For GS at RING 0 from call_gate
+#define USRS_ACCES_DATA 0xF0 // GS access devs interrupts from main users space.
+#define DEVS_ACCES_DATA 0xF8 // GS at RING 0 from call_gate
 
 /* Call gates */
 #define CG_TX_IRQ	0x100

@@ -21,8 +21,10 @@ typedef long long  		l_long;
 typedef void (*void_func)(void);
 typedef void (*void_f_int)(u_int);
 
-#define __naked   __declspec( naked )
+#define NULL ((void *)0)
+#define __naked    __declspec(naked)
 #define __inline_  __attribute__((always_inline))
+#define __noret_   __attribute__((__noreturn__))
 #define INT_SIZE 4
 
 #endif /* _TYPE_DEF */
