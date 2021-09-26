@@ -312,7 +312,7 @@ __asm{
 	xor ebx,ebx
 	mov ebx,eax
 
-	lea eax, keyboard	// arg func
+	lea eax, keyboard	// arg func dword ptr gs:
 	push eax			// arg func
 	push ebx			// arg val
 	call save_irq		// for now every push & up key is saved!
@@ -337,9 +337,14 @@ __asm{
 
 __naked void Keyb_int(void) {
 __asm{
-	nop								// for debugging reasons on Bochs
-	mov [tss_devs_irq.eax], KEY_INT // put irq request at task.eax structure
+	nop // for debugging reasons on Bochs
+	//push ds
+	//mov eax,DEVS_DATA
+	//mov ds, ax
+	//mov [tss_devs_irq.eax], KEY_INT
+	mov dword ptr gs:[tss_devs_irq.eax], KEY_INT // put irq request at task.eax structure
 	lcall TSS_DEVS_IRQ,0			// call task to be nested where IF is clear
+	//pop ds
 	iretd							// return from nested task
   }
 }
