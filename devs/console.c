@@ -11,7 +11,7 @@
  * Hopefully this will be a rather complete VT102 implementation.
  * ----------------------------------------------------------------------------
  *
- * 1.July.2019. modified by ISOUX
+ * 2019. modified by ISOUX
  * The code has been rebuilt by introducing an inline assembler functions 
  * ( they all start with the prefix asm ) written in the Intel syntax.
  * The file is compiling with clang (LLVM).
@@ -530,17 +530,19 @@ void write_con(struct tty_struct * tty)
 	} 
 	set_cursor();
 }
- 
-extern struct tty_struct tty_tbl[];
 
 void con_init(void)
 {
+  struct tty_struct * tty;
+  tty = (&tty_tbl[0]);
+
 #ifdef GRUB2
   gotoxy(0,0);
 #else
-  gotoxy(0,11);
+  gotoxy(0,12);
 #endif
-  write_con(&tty_tbl[0]);	// Write initiate message
+
+  tty->write(tty); // Write initiate message
   set_cursor();
 }
 

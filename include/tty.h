@@ -66,18 +66,22 @@ struct tty_queue {
 
 struct tty_struct {
 	struct termios termios;
+	void (*write)(struct tty_struct * tty);
 	struct tty_queue read_q;
 	struct tty_queue write_q;
 	struct tty_queue sec_q;
 };
 
-extern struct tty_struct tty_tbl[1];
+extern struct tty_struct tty_tbl[];
+
+/* The elements of the array tty_tbl_list[] need an explicit
+ * declaration of length [2] for the sake of asm code...
+ */
 extern struct tty_queue * tty_tbl_list[2];
 
 extern void tty_interrupt(int tty);
 
-extern long is_devs_task;
-
+/* The pointers at structure tty_queue */
 #define _data 0
 #define _head 4
 #define _tail 8

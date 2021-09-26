@@ -21,6 +21,7 @@ struct tty_struct tty_tbl[1] = {
 		ICANON | ECHO | ECHOCTL | ECHOKE,
 		0,				/* console termios */
 		INIT_C_CC},
+		write_con,
 		{0,0,0,0,""},	/* console read-queue */
 		// {0,0,0,0,""}, /* console write-queue (originally)  */
 		// Is changed for showing the initiate message.
@@ -59,8 +60,7 @@ void prepare(struct tty_struct * tty)
 					if (c<32)
 						PUTCH(127,tty->write_q);
 					PUTCH(127,tty->write_q);
-					// tty->write(tty);	// right implementation
-					write_con(tty);		// temporary
+					tty->write(tty);
 				}
 				// DEC(tty->sec_q.head);
 				continue;
@@ -93,8 +93,7 @@ void prepare(struct tty_struct * tty)
 				}
 			} else
 				PUTCH(c,tty->write_q);
-			// tty->write(tty);	// right implementation
-			write_con(tty);		// temporary
+			 tty->write(tty);
 		}
 		//PUTCH(c,tty->sec_q);
 	}
