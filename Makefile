@@ -29,7 +29,6 @@ all: Image
 
 sys_out/sys_load: boot/load.o
 	$(LD) -M -T ld_load.scr boot/load.o  -o sys_out/sys_load.o > sys_load.lnk
-	objcopy -O binary -R .note -R .comment sys_out/sys_load.o sys_out/sys_load
 	#objdump -D -z --disassembler-options=intel-mnemonic sys_out/sys_load.o > sys_load.dum
 
 sys_out/system: $(SYS_OBJS)
@@ -45,13 +44,13 @@ del_iso:
 make_iso: sys_out/sys_load.o
 	(make del_iso)
 	$(MKDIR) $(GRUB_PATH)
-	$(CP) $(LOAD) $(BOOT_PATH)/$(SYS)
+	$(CP) $(LOAD) $(BOOT_PATH)/$(SYS_LOAD)
 	$(CP) $(CFG) $(GRUB_PATH)
 	$(CP) $(GDT) $(BOOT_PATH)/$(GDT_RAM)
 	$(CP) $(DEVS) $(BOOT_PATH)/$(DEVS_RAM)
 	$(CP) $(CORE) $(BOOT_PATH)/$(CORE_RAM)
 	$(CP) $(USRS) $(BOOT_PATH)/$(USRS_RAM)
-	grub-file --is-x86-multiboot $(BOOT_PATH)/$(SYS)
+	grub-file --is-x86-multiboot $(BOOT_PATH)/$(SYS_LOAD)
 	grub-mkrescue --compress=no -o $(SYS).iso $(ISO_PATH)
 	
 del_img:
@@ -59,7 +58,7 @@ del_img:
 
 make_img:
 	(make del_img)
-	$(CP) $(LOAD) $(IMG_PATH)/$(SYS)
+	$(CP) $(LOAD) $(IMG_PATH)/$(SYS_LOAD)
 	$(CP) $(GDT) $(IMG_PATH)/$(GDT_RAM)
 	$(CP) $(DEVS) $(IMG_PATH)/$(DEVS_RAM)
 	$(CP) $(CORE) $(IMG_PATH)/$(CORE_RAM)

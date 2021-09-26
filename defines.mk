@@ -21,6 +21,7 @@ DEVS_RAM = devs
 CORE_RAM = core
 USRS_RAM = usrs
 SYS = 4ring_os
+SYS_LOAD = load
 IMG_FILES = img/*
 CFG = boot/grub.cfg
 DEVS = sys_out/devs
