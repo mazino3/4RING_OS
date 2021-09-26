@@ -64,8 +64,9 @@ l_long gdt[GDT_ENTRIES] = {
 	0x0000000000000000, //  sel. 0xD8
 	0x0000000000000000, //  sel. 0xE0
 	0x0000000000000000, //  sel. 0xE8
-	0x0000000000000000, //  sel. 0xF0
 	/// Data access trough segment registers
+	0x00c0f20000000000 + DEVS_LIMIT, //  USRS_ACCES_DATA sel. 0xF0
+									 // To access interupts from users to devs.
 	0x00C0B200000007ff, //  DEVS_ACCES_DATA sel. 0xF8; used for GS register
 	/// CALL GATES
 	0x0000ec0100080000, // CG_TX_IRQ sel. 0x100 Call Gate for  RING 0
