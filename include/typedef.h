@@ -25,6 +25,9 @@ typedef void (*void_f_int)(u_int);
 #define __naked    __declspec(naked)
 #define __inline_  __attribute__((always_inline))
 #define __noret_   __attribute__((__noreturn__))
+#define __unusd_   __attribute__((unused))
+#define __weak_    __attribute__((weak))
+
 #define INT_SIZE 4
 
 #endif /* _TYPE_DEF */
