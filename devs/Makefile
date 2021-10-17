@@ -9,21 +9,21 @@ include ../defines.mk
 
 CFLAGS = -m32 -march=$(ARCH) -c -Wall -fomit-frame-pointer -finline-functions -nostdinc \
 	-fasm-blocks -masm=intel -fasm -fno-builtin -I ../include -fdeclspec  -fpack-struct \
-	-D$(BOOT_WAY)
-	
+	-D$(BOOT_WAY) 
 LDFLAGS =
+#LIBS = ../libs/lib/lib.a
 
 all: devs.o
 
 c.o:
-	$(CC) $(CFLAGS) -O -o $*.o $<
+	$(CC) $(CFLAGS) -O2 -o $*.o $<
 	
-OBJS =  keyboard.o tty.o devs_task.o devs_sched.o devs_irq.o console.o
+OBJS =  keyboard.o tty.o devs_task.o devs_sched.o devs_irq.o console.o #$(LIBS)
 	
 devs.o: $(OBJS) 
-	$(LD) -T devs_ld.scr -Map devs.map -M $(OBJS) -o devs.o > devs.lnk
+	$(LD) -T devs_ld.scr -Map devs.map -M $(OBJS) -z muldefs -o devs.o > devs.lnk
 	objcopy -O binary -R .note -R .comment devs.o ../sys_out/devs
-	#objdump -D -z --disassembler-options=intel-mnemonic devs.o  > devs.dum
+	objdump -D -z --disassembler-options=intel-mnemonic devs.o  > devs.dum
 
 clean:
 	rm -f *.o -v tmp*
