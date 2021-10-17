@@ -56,7 +56,7 @@ unsigned char cur_ring_task = 0;
  * For now the func is in assembler code for critical speed reasons and
  * stack implementation when is called from call gate.
  */
-__naked void sc_sched_req(void) {
+__naked_ void sc_sched_req(void) {
 __asm{
 	  mov cx, ds					// save ds from the calling ring
 	  xor eax,eax
@@ -95,7 +95,7 @@ __asm{
   }
 }
 
-__inline_ static void long_jmp(void) {
+__inlinea_ static void long_jmp(void) {
   __asm{ ljmp [cg_args] }
 }
 

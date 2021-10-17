@@ -35,7 +35,7 @@ extern int idt;
 extern void Keyb_int(void);
 extern void timer_interrupt(void);
 
-__naked void set_interrupt( void ) { 
+__naked_ void set_interrupt( void ) {
 __asm{
 	mov ebx, idt_desc.func
 	xor eax, eax

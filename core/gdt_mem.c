@@ -69,6 +69,6 @@ l_long gdt[GDT_ENTRIES] = {
 									 // To access interupts from users to devs.
 	0x00C0B200000007ff, //  DEVS_ACCES_DATA sel. 0xF8; used for GS register
 	/// CALL GATES
-	0x0000ec0100080000, // CG_TX_IRQ sel. 0x100 Call Gate for  RING 0
+	0x0000ec0100080000, // CG_CORE_TX_IRQ sel. 0x100 Call Gate for  RING 0
 
 };

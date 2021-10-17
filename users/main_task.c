@@ -64,7 +64,7 @@ void set_task_stacks(void) {
 }
 
 /* From here we will enter the first registered user process. */
-__naked void main_task(void) {
+__naked_ void main_task(void) {
   __asm{
 	mov eax, TASK_DATA
 	mov ds, ax
@@ -73,7 +73,7 @@ __naked void main_task(void) {
   }
 }
 
-__naked void set_usrs_tss_desc(void) {
+__naked_ void set_usrs_tss_desc(void) {
 __asm{
 	add edi,ecx
 	mov [edi+0x2], ax

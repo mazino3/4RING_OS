@@ -14,7 +14,7 @@ struct gdt_opcode_p {
 	u_int * gdt;		// ptr of gdt table + core base
 } gdt_opcode = { GDT_ENTRIES, ((u_int *) & gdt[0]) + CORE_BASE };
 
-__naked void setup_gdt(void) {
+__naked_ void setup_gdt(void) {
 __asm{
 	lgdt gdt_opcode
 	ret

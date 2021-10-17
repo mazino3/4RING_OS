@@ -21,7 +21,7 @@ extern void set_timer_interrupt(void);
 
 void timer_interrupt(void);
 
-__naked void setup_timer(void) {
+__naked_ void setup_timer(void) {
 __asm{
 	mov al,	0x36
 	mov edx, 0x43
@@ -35,7 +35,7 @@ __asm{
 	}
 }
 
-__naked void umask_tim_int(void) { 
+__naked_ void umask_tim_int(void) {
 __asm{
 	mov edx, 0x21
 	in al, dx
@@ -45,7 +45,7 @@ __asm{
 	}
 }
 
-__naked void timer_interrupt(void) {
+__naked_ void timer_interrupt(void) {
 __asm{
 	nop				// for debbug reasons at bochs
 	push ds

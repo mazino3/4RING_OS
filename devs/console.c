@@ -56,7 +56,7 @@ unsigned char attr = FG_GREEN + BG_BLACK;
 /* Folows static inline assembler functions.
  * This intel sintax is posible because of using LLVM clang compiler
  */
-__inline_ static void asm_scrup_1(void) {
+__inlinea_ static void asm_scrup_1(void) {
 __asm{	mov ax, (SPACE_ATTR)
 			cld
 			rep movsd dword ptr es:[edi], dword ptr[esi]
@@ -64,13 +64,13 @@ __asm{	mov ax, (SPACE_ATTR)
 			rep stosw }
 }
 
-__inline_ static void asm_scrup_2(void) {
+__inlinea_ static void asm_scrup_2(void) {
 __asm{	mov eax, (SPACE_ATTR_X2)
 			cld 
 			rep stosd }	
 } 
 
-__inline_ static void asm_scrdown(void) {
+__inlinea_ static void asm_scrdown(void) {
 __asm{	mov ax,(SPACE_ATTR)
 			std
 			rep movsd dword ptr es:[edi], dword ptr[esi]
@@ -79,13 +79,13 @@ __asm{	mov ax,(SPACE_ATTR)
 			rep stosw }
 } 
 
-__inline_ static void asm_erease() {
+__inlinea_ static void asm_erease() {
 __asm{	mov ax,(SPACE_ATTR)
 			cld
 			rep	stosw }
 }
 
-__inline_ static void asm_char_write(unsigned char c) {
+__inlinea_ static void asm_char_write(unsigned char c) {
 __asm{	mov al, byte ptr [c]
 			mov edx, [pos]
 			mov ah, byte ptr [attr] /* mov ah,byte ptr SPACE_ATTR */
@@ -94,7 +94,7 @@ __asm{	mov al, byte ptr [c]
 }
 /* End of static inline asemmbler functions */
 
-__inline_ static void gotoxy(unsigned int new_x,unsigned int new_y)
+__inlinea_ static void gotoxy(unsigned int new_x,unsigned int new_y)
 {
 	if (new_x>=columns || new_y>=lines)
 		return;
@@ -103,7 +103,7 @@ __inline_ static void gotoxy(unsigned int new_x,unsigned int new_y)
 	pos=origin+((y*columns+x)<<1);
 }
 
-__inline_ static void set_origin(void)
+__inlinea_ static void set_origin(void)
 {
 	outb_p(12,0x3d4);
 	outb_p(0xff&((origin-SCREEN_START)>>9),0x3d5);
@@ -253,7 +253,7 @@ void csi_m(void)
 		}
 }
 
-__inline_ static void set_cursor(void)
+__inlinea_ static void set_cursor(void)
 {
 	outb_p(14,0x3d4);
 	outb_p(0xff&((pos-SCREEN_START)>>9),0x3d5);

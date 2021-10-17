@@ -7,9 +7,10 @@
  *
  * Keyboard functions are covered here. The interrupt is quickly caught
  * and the value of the key is recorded in the structure so that the program
- * flow is redirected to the task which by default has the interrupt flag
- * turned off. Task is further prepared to process the value after the first
- * entering from core_schedule (ring 0) to the devs_schedule at (ring 1).
+ * flow is redirected to the task (devs_irq_task) which by default has the
+ * interrupt flag turned off. Task is further prepared to process the value
+ * after the first entering from core_schedule (ring 0) to the devs_schedule
+ * at (ring 1).
  *
  * The functionality of keyboard is't yet fully implemented!!!
  *
@@ -62,7 +63,7 @@ const u_char shift_map[] = {
 	0,0,0,0,0,0,0,0,0,0
 };	
 
-__naked void put_queue(void) {
+__naked_ void put_queue(void) {
 __asm{
 	push ecx
 	mov edx, tty_tbl_list[0]				//read_q
@@ -79,7 +80,7 @@ __asm{
 	}
 }	
 
-__naked void do_key(void) {
+__naked_ void do_key(void) {
 __asm{
 	//lea ebx,[alt_map]
 	//test byte[mode], 0x20					// alt-gr
@@ -121,105 +122,105 @@ none:
 	}
 }
 
-__naked void ctrl(void) {
+__naked_ void ctrl(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void none(void) {
+__naked_ void none(void) {
 __asm{
 	mov [is_none], 1
 	ret
   }
 }
 
-__naked void lshift(void) {
+__naked_ void lshift(void) {
 __asm{
 	or byte ptr[mode],0x01
 	ret
   }
 }
 
-__naked void rshift(void) {
+__naked_ void rshift(void) {
 __asm{
 	or byte ptr[mode],0x02
 	ret
   }
 }
 
-__naked void alt(void) {
+__naked_ void alt(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void caps(void) {
+__naked_ void caps(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void func(void) {
+__naked_ void func(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void curs(void) {
+__naked_ void curs(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void unctrl(void) {
+__naked_ void unctrl(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void unlshift(void) {
+__naked_ void unlshift(void) {
 __asm{
 	and byte ptr[mode],0xfe
 	ret
   }
 }
 
-__naked void unrshift(void) {
+__naked_ void unrshift(void) {
 __asm{
 	and byte ptr[mode],0xfd
 	ret
   }
 }
 
-__naked void unalt(void) {
+__naked_ void unalt(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void uncaps(void) {
+__naked_ void uncaps(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void num(void) {
+__naked_ void num(void) {
 __asm{
 	nop
 	ret
   }
 }
 
-__naked void scroll(void) {
+__naked_ void scroll(void) {
 __asm{
 	nop
 	ret
@@ -227,7 +228,7 @@ __asm{
 }
 
 /* Halt processor */
-__naked void halt(void) {
+__naked_ void halt(void) {
 __asm{
 	mov al, 0xfe
 	out 0x64, al
@@ -305,7 +306,7 @@ __asm{
 }
 
 /* get key interrupt */
-__naked void get_key_int(void) {
+__naked_ void get_key_int(void) {
 __asm{
 	xor al,al
 	in al,0x60
@@ -335,16 +336,11 @@ __asm{
   }
 }
 
-__naked void Keyb_int(void) {
+__naked_ void Keyb_int(void) {
 __asm{
-	nop // for debugging reasons on Bochs
-	//push ds
-	//mov eax,DEVS_DATA
-	//mov ds, ax
-	//mov [tss_devs_irq.eax], KEY_INT
-	mov dword ptr gs:[tss_devs_irq.eax], KEY_INT // put irq request at task.eax structure
-	lcall TSS_DEVS_IRQ,0			// call task to be nested where IF is clear
-	//pop ds
-	iretd							// return from nested task
+	// nop // For debugging reasons on Bochs
+	mov dword ptr gs:[tss_devs_irq.eax], KEY_INT // Put irq request at task.eax
+	lcall TSS_DEVS_IRQ,0 // Call task to be nested where IF is clear
+	iretd                // Return from the nested task
   }
 }

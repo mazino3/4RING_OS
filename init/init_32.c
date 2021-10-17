@@ -37,7 +37,7 @@ struct stack_descript {
 	short  base;
 } stack_start = { & kernel_stack[PAGE_SIZE>>4], CORE_DATA };
 	
-__naked void  init_32(void) {
+__naked_ void  init_32(void) {
   __asm{
 	mov eax, CORE_DATA
 	mov ds, ax
@@ -51,13 +51,13 @@ __naked void  init_32(void) {
 
 long * p_gdt = (long *) &gdt[0];
 
-__naked void  setup_descriptors(void) {
+__naked_ void  setup_descriptors(void) {
   __asm{
 	//mov ebx, CORE_BASE
 	mov ecx, [p_gdt]
 
 	lea eax, sc_sched_req
-	mov edi, CG_TX_IRQ
+	mov edi, CG_CORE_TX_IRQ
 	call set_call_gate
 
 	call setup_idt
@@ -93,7 +93,7 @@ __naked void  setup_descriptors(void) {
 	}
 }
 
-__naked void set_tss_desc(void)	{
+__naked_ void set_tss_desc(void)	{
   __asm{
 	add edi,ecx
 	mov [edi+0x2], ax
@@ -104,7 +104,7 @@ __naked void set_tss_desc(void)	{
 	}
 }
 
-__naked void set_call_gate(void) {
+__naked_ void set_call_gate(void) {
   __asm{
 	add edi,ecx
 	mov [edi], ax

@@ -47,7 +47,7 @@ struct idt_opcode_p {
 	u_int * idt;		// ptr of idt table + core base
 } static mb_idt_opc = {0, 0};
 
-__naked void set_idt_gdt(void) {
+__naked_ void set_idt_gdt(void) {
 __asm{
 	lidt mb_idt_opc
 	lgdt mb_gdt_opc
@@ -63,7 +63,7 @@ struct ljmp_args {
 	u_short selector;
 } jmp_args = {(u_long) load, CORE_CODE};
 
-__naked void start(void) {
+__naked_ void start(void) {
   __asm{
 	cli				// block interrupts
 	call set_idt_gdt
@@ -92,7 +92,7 @@ __naked void start(void) {
   }
 }
 
-__naked void load(void) {
+__naked_ void load(void) {
   __asm{
 	lea eax, stack_space[8192]
 	mov esp, eax
@@ -103,7 +103,7 @@ __naked void load(void) {
   }
 }
 
-__inline_ static u_int reverse_val(void){
+__inlinea_ static u_int reverse_val(void){
   __asm{
 	add eax,11
 	mov eax,[eax]

@@ -25,7 +25,7 @@ int * pg_tab0 = (int *) 0x00001000;//Ptr of page table for first 4Mb(4096 bytes)
 int * pg_tab1 = (int *) 0x00002000;//Ptr of page table for another 4Mb = 8Mb
 //int * pg_tab2 = (int *) 0x00003000;//Ptr of page table for another 4Mb
 
-__naked void setup_paging(void) {
+__naked_ void setup_paging(void) {
 __asm{
 	mov ecx, PTE_SIZE*3
 	xor eax, eax

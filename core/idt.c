@@ -33,7 +33,7 @@ struct idt_opcode_p {
 } static idt_opcode = {(0x100*8-1), ((u_int *) & idt[0])};
 
 
-__naked void setup_idt(void) {
+__naked_ void setup_idt(void) {
 __asm{
 	lea edx, comm_ignore_int
 	mov eax,0x00080000
@@ -53,7 +53,7 @@ __asm{
 }
 
 // This is the default interrupt "handler"
-__naked void comm_ignore_int(void) {
+__naked_ void comm_ignore_int(void) {
 __asm{
 	push ds
 	push eax

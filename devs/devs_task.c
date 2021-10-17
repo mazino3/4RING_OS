@@ -95,7 +95,7 @@ void set_devs_stacks(void) {
 
 }
 
-__naked void set_devs_tss_desc(void) {
+__naked_ void set_devs_tss_desc(void) {
 __asm{
 	add edi,ecx
 	mov [edi+0x2], ax

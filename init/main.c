@@ -24,7 +24,7 @@ int main(void);
 void enter_main_core_task(void);
 void sys_init(void);
 
-__naked void after_pg_tables() {
+__naked_ void after_pg_tables() {
 __asm{
 	push 0
 	push 0
@@ -53,7 +53,7 @@ int main(void) {
  * privileged lever at ring 1 to be able to taking interrupts from keyboard
  * and so on, since all devices are at ring 1.
  */
-__naked void enter_main_core_task(void) {
+__naked_ void enter_main_core_task(void) {
 __asm{
    ljmp TSS_MAIN_TASK, 0
   }
