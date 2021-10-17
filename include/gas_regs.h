@@ -32,9 +32,5 @@
 #define _ebx(value) __asm__ (""::"b" (value))
 #define _edx(value) __asm__ (""::"d" (value))
 
-/* Intel syntax */
-#define _cli() __asm__ {cli}
-#define _sti() __asm__ {sti}
-
 #endif /* _GAS_REGS */
 

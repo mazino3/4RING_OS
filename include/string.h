@@ -1,5 +1,5 @@
 /*
- * 4RING_OS
+ * 4RING_OS License: MIT
  *
  * string.h
  *
@@ -23,15 +23,20 @@
 typedef unsigned int size_t;
 #endif
 
-#define __inl_unusd_  __inline_ __unusd_ /* inline unsuded  */
+/*
+ * I need here attributes always_inline and unused. The need for unused is
+ * to avoid warning: [-Wunused-function] because when C files include this
+ * header, static declarations of functions reasonably produce these warnings.
+ */
+#define __inl_unusd_  __inlinea_ __unusd_ /* always_inline unsuded  */
 
 /// Copying functions
 
 // String Copy
 /*
-* The function stcpy  copies the string pointed to, by src to dest.
-* It returns a pointer to the destination (dest).
-*/
+ * The function stcpy  copies the string pointed to, by src to dest.
+ * It returns a pointer to the destination (dest).
+ */
 static __inl_unusd_ char * strcpy(char *dest, const char *src)
 {
   _esi(src);
@@ -41,23 +46,24 @@ static __inl_unusd_ char * strcpy(char *dest, const char *src)
 	loop: lodsb
 	stosb
 	test al,al
-	jne loop }
+	jne loop
+  }
   return dest;
 }
 
 // Bounded String Copy
 /*
-* The function strncpy  copies up to n characters from the string pointed to,
-* by src to dest. In a case where the length of src is less than that of n,
-* the remainder of dest will be padded with null bytes. It returns a pointer
-* to the destination (dest).
-*/
+ * The function strncpy  copies up to n characters from the string pointed to,
+ * by src to dest. In a case where the length of src is less than that of n,
+ * the remainder of dest will be padded with null bytes. It returns a pointer
+ * to the destination (dest).
+ */
 static __inl_unusd_ char * strncpy(char *dest, const char *src, size_t n)
 {
   _esi(src);
   _edi(dest);
   _ecx(n);
-__asm{
+ __asm{
 	cld
 	loop: dec ecx
 	js exit
@@ -95,7 +101,7 @@ static __inl_unusd_ void * memcpy(void *dest, const void *src, size_t n)
  * overlapping memory blocks, memmove() is a safer approach than memcpy().
  * It returns a pointer to the destination, which is dest.
  */
-static __inl_unusd_ void * memmove(void * dest,const void * src, int n)
+static __inl_unusd_ void * memmove(void * dest, const void * src, int n)
 {
 	if (dest < src) {
 		_esi(src);
@@ -132,7 +138,7 @@ static __inl_unusd_ char * strcat(char *dest, const char *src)
   _edi(dest);
 __asm__{
 	mov eax,0
-	mov ecx, 0xffffffff
+	mov ecx, -1
 	cld
 	repne
 	scasb
@@ -159,7 +165,7 @@ static __inl_unusd_ char * strncat(char *dest, const char *src, size_t n)
   _edi(dest);
   __asm__{
 	mov eax,0
-	mov ecx, 0xffffffff
+	mov ecx, -1
 	cld
 	repne
 	scasb
@@ -316,7 +322,7 @@ static __inl_unusd_ char * strrchr(const char *str, int c)
 	l2: test al, al
   	jne l1
   	mov eax, edx
-    }
+  }
 }
 
 // Search String for Initial Span of Characters in Set
@@ -465,7 +471,6 @@ char * __strtok = NULL;
  */
 static __inl_unusd_ char * strtok(char *str, const char *delim)
 {
-  //char *res;
   _edx(delim);
   _esi(str);
   _ebx(__strtok);
@@ -523,7 +528,6 @@ static __inl_unusd_ char * strtok(char *str, const char *delim)
   mov __strtok,esi
   mov eax, ebx
   }
-  //return res;
 }
 
 // Search Memory Block for Character

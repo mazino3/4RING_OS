@@ -11,6 +11,9 @@
 #ifndef _SCHED_H
 #define _SCHED_H
 
+#include <gdt.h>
+#include <io.h>
+
 /* Schedule structure with pointers for circular buffer at core
  * ring (0)
  */
@@ -23,13 +26,14 @@ struct sched_buf_ptrs {
  * (rings 1,2,3)
  */
 struct sched_req_struc {
-  u_char req_ptr;			// requested pointer at core ring
+  u_char req_ptr;			// Requested pointer at core ring
   u_int value;
   void_f_int func;
 };
 
-/* Parameters for call gate function CG_TX_IRQ */
-#define DECL_IRQ 0x100		// declare or register irq request
-#define CLR_IRQ  1			// clear irq request
+/* Parameters for call gate function CG_CORE_TX_IRQ */
+#define DECL_IRQ 0xFF		// Declare or register irq request
+#define CLR_IRQ  1			// Clear irq request
+
 
 #endif /* _SCHED_H */

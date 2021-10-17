@@ -77,7 +77,7 @@ extern long long gdt[];
 #define DEVS_ACCES_DATA 0xF8 // GS at RING 0 from call_gate
 
 /* Call gates */
-#define CG_TX_IRQ	0x100
+#define CG_CORE_TX_IRQ	0x100
 
 /// End GDT Descriptors Selectors
 

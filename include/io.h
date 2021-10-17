@@ -60,4 +60,9 @@ unsigned char _v;			\
 	_forward(value);			\
 })
 
+/* Intel syntax */
+#define _cli() __asm__ {cli}
+#define _sti() __asm__ {sti}
+#define int_ret() __asm__ {iretd} // Return from interrupt or from nested task
+
 #endif /* _IO_H */
