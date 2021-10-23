@@ -15,7 +15,9 @@ Hobby operating system for Intel processors from 386 and up. Engaged on all 4 ri
 <p style="text-align: justify;">To make it easier to understand the functionality of the system and for myself as well, I decided to start with release 0.00 for easier monitoring and gradual introduction to the complexity of the system. That is why ring 2 have not been launched in this release yet.</p>
 <p style="text-align: justify;">The system is successfully tested on emulators as well as on real machines. It is currently compiled for i486 and 8M of RAM (for my <span style="color: #ffff00;"><a href="https://i.pinimg.com/originals/2d/24/65/2d24653bf7a545a23526c9f00fef7e11.jpg"><span style="color: #ffff00;"><em>COMPAQ AERO 486 machine</em></span></a></span>).</p>
 <p style="text-align: justify;">Before I decided on GRUB loaders, with a simply written loader, I could run the system on 64-bit machines as well.</p>
-<p style="text-align: justify;">However, when GRUB loaders (which are even compiled for 32-bit machines) run on 64-bit machines the system crashes. For now, I am not able to solve this problem.</p>
+<p style="text-align: justify;">However, when GRUB loaders (which are even compiled for 32-bit machines) run on 64-bit machines the system crashes. For now, I am not able to solve this problem.
+
+In order to be able to use the BOCHS gui debbuger, I had to install an older version because the default version of BOCHS has a problem with the gui debugger on UBUNTU 20.04. Sometimes the qemu emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the qemu showed the opposite.</p>
 <p>&#160;</p>
 <h2>&#160;</h2>
 <p>&#160;</p>
