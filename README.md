@@ -17,7 +17,7 @@ Hobby operating system for Intel processors from 386 and up. Engaged on all 4 ri
 <p style="text-align: justify;">Before I decided on GRUB loaders, with a simply written loader, I could run the system on 64-bit machines as well.</p>
 <p style="text-align: justify;">However, when GRUB loaders (which are even compiled for 32-bit machines) run on 64-bit machines the system crashes. For now, I am not able to solve this problem.
 
-In order to be able to use the BOCHS gui debbuger, I had to install an older version because the default version of BOCHS has a problem with the gui debugger on UBUNTU 20.04. Sometimes the qemu emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the qemu showed the opposite.</p>
+In order to be able to use the BOCHS gui debbuger, I had to install an older version because the default version of BOCHS has a problem with the gui debugger on UBUNTU 20.04. Sometimes the qemu emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the qemu showed the opposite. But my goal is not to adapt my code to the QEMU or other emulators, but to the real machines.</p>
 <p>&#160;</p>
 <h2>&#160;</h2>
 <p>&#160;</p>
