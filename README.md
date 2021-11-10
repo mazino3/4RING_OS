@@ -12,9 +12,9 @@ Although this system would be strictly hardware-oriented and not portable, I sti
 - [Basic Idea and assumptions](https://www.isoux.org/blog/index.php?article4/basic-idea-and-assumptions)
 - [Development and tools](https://www.isoux.org/blog/index.php?article5/development-and-tools)
 
-## Release 0.00
+## Pre-release 0.00
 
-<p style="text-align: justify;">Nothing spectacular for the zero release.</p>
+<p style="text-align: justify;">Nothing spectacular for the zero pre-release.</p>
 <p style="text-align: justify;">What can be noticed is that the characters are printed on the monitor when the keyboard is pressed until the buffer is full. What is actually happening on the system is a "complex" int&#1077;raction between rings 1 and 0 for now, which can be seen in the code.</p>
 <p style="text-align: justify;">Every interrupts made by the keyboard is captured by a procedure that is actually a task in ring one. Value is written to the queue buffer, and a request for kernel processing is sent to the core via the call gate immediately. After the core scheduler transfers that execution to the ring it requested, the task schedule procedure in that ring processes the interrupt in its domain...</p>
 <p style="text-align: justify;">So each ring has its own task scheduler...</p>
