@@ -11,19 +11,25 @@ Although this system would be strictly hardware-oriented and not portable, I sti
 - [Motivation](https://www.isoux.org/blog/index.php?article3/motivation)
 - [Basic Idea and assumptions](https://www.isoux.org/blog/index.php?article4/basic-idea-and-assumptions)
 - [Development and tools](https://www.isoux.org/blog/index.php?article5/development-and-tools)
+- [Pre-release 0.00](https://www.isoux.org/blog/article6/release-000)
 
-## Pre-release 0.00
+Screenshots:
 
-<p style="text-align: justify;">Nothing spectacular for the zero pre-release.</p>
-<p style="text-align: justify;">What can be noticed is that the characters are printed on the monitor when the keyboard is pressed until the buffer is full. What is actually happening on the system is a "complex" int&#1077;raction between rings 1 and 0 for now, which can be seen in the code.</p>
-<p style="text-align: justify;">Every interrupts made by the keyboard is captured by a procedure that is actually a task in ring one. Value is written to the queue buffer, and a request for kernel processing is sent to the core via the call gate immediately. After the core scheduler transfers that execution to the ring it requested, the task schedule procedure in that ring processes the interrupt in its domain...</p>
-<p style="text-align: justify;">So each ring has its own task scheduler...</p>
-<p style="text-align: justify;">To make it easier to understand the functionality of the system and for myself as well, I decided to start with pre-release 0.00 for easier monitoring and gradual introduction to the complexity of the system. That is why ring 2 (libs) have not been launched in this release yet.</p>
-<p style="text-align: justify;">The system is successfully tested on emulators as well as on real machines. It is currently compiled for i486 and 8M of RAM (for my <span style="color: #ffff00;"><a href="https://i.pinimg.com/originals/2d/24/65/2d24653bf7a545a23526c9f00fef7e11.jpg"><span style="color: #ffff00;"><em>COMPAQ AERO 486 machine</em></span></a></span>).</p>
-<p style="text-align: justify;">Before I decided on GRUB loaders, with a simply written loader, I could run the system on 64-bit machines as well.</p>
-<p style="text-align: justify;">However, when GRUB loaders (which are even compiled for 32-bit machines) run on 64-bit machines the system crashes. For now, I am not able to solve this problem.
+![Screenshot](4RING_OS.png) from BOCHS
 
-In order to be able to use the BOCHS GUI debugger, I had to install an older version because the default version of BOCHS has a problem with the gui debugger on UBUNTU 20.04. Sometimes the qemu emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the qemu showed the opposite. But my goal is not to adapt my code to the QEMU or other emulators, but to the real machines.</p>
+![Screenshot](ON_COMPAQ.jpg) from COMPAQ contura AERO
+
+## Release 0.00
+Finally, after a few months, we came to the first tangible release.
+
+Printc and printr functions have been created to print system alerts and facilitate debugging from all rings. Printc (print core) for kernel at ring 0 and printr (print ring) for others rings. Writing the printf function has opened up engagement on multiple fronts. First I had to start writing a small libc library specific to my environment (4libc) to be able to implement the printf function. I then swiped the function through three rings until the contents were printed on the monitor. I had to learn a lot of mistakes ... The basic functionality has been achieved, and the example of this function shows the interaction from user protection rings through libraries to devices (from ring 3 through 2 to 1). Finally, I wrote a hello world application that loads into ram memory and runs after system initialization, to show if this works.
+
+There is a lot of work to be done to write the existing code more implicitly first and to avoid repeating some functions written in the assembler.
+The biggest task is to start writing memory management, implementing a file system, and at the same time expand the basic libc library and add new ones.
+It is certainly important to add some new application that proves the functionality of the system.
+What you see, I also successfully tested on real 32-bit machines.
+
+In order to be able to use the BOCHS GUI debugger, I had to install an older version because the default version of BOCHS has a problem with the GUI debugger on UBUNTU 20.04. Sometimes the QEMU emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the QEMU showed the opposite. But my goal is not to adapt my code to the QEMU or other emulators, but to the real machines.</p>
 <p>&#160;</p>
 <h2>&#160;</h2>
 <p>&#160;</p>
