@@ -14,7 +14,6 @@
  * (C) Copyright 2021 Isa <isa@isoux.org>
  */
 
-
 #include <typedef.h>
 #include <gdt.h>
 #include <sys.h>
@@ -36,17 +35,17 @@ l_long gdt[GDT_ENTRIES] = {
 	0x00c0fa0000000000 + USERS_SYS_LIMIT, // USERS_CODE sel. 0x38 ring 3
 	0x00c0f20000000000 + USERS_SYS_LIMIT, // USERS_DATA sel. 0x40 ring 3
 	/// System segment descriptors
-	// RESERVED
-	0x0000000000000000, //  sel. 0x48
-	0x0000000000000000, //  sel. 0x50
+	// RING 0 TASK
+	0x0000890000000400, // TSS_CORE  sel. 0x48
+	0x0000820000000400, // LDT_CORE  sel. 0x50
 	// RING 1 TASKS
-	0x0000a90000000100, // TSS_DEVS_IRQ   sel. 0x58
-	0x0000a20000000100, // LDT_DEVS_IRQ   sel. 0x60
-	0x0000a90000000100, // TSS_DEVS_SCHED sel. 0x68
-	0x0000a20000000100, // LDT_DEVS_SCHED sel. 0x70
+	0x0000a90000000400, // TSS_DEVS_IRQ   sel. 0x58
+	0x0000a20000000400, // LDT_DEVS_IRQ   sel. 0x60
+	0x0000a90000000400, // TSS_DEVS_SCHED sel. 0x68
+	0x0000a20000000400, // LDT_DEVS_SCHED sel. 0x70
 	// RING 2 TASKS (for now undefined)
-	0x0000000000000000, // TSS_LIBS_IRQ   sel. 0x78
-	0x0000000000000000, // LDT_LIBS_IRQ   sel. 0x80
+	0x0000C90000000400, // TSS_LIBS_IRQ   sel. 0x78
+	0x0000C20000000400, // LDT_LIBS_IRQ   sel. 0x80
 	0x0000000000000000, // TSS_LIBS_SCHED sel. 0x88
 	0x0000000000000000, // LDT_LIBS_SCHED sel. 0x90
 	// RING 3 TASKS (for now undefined)
@@ -69,6 +68,8 @@ l_long gdt[GDT_ENTRIES] = {
 									 // To access interupts from users to devs.
 	0x00C0B200000007ff, //  DEVS_ACCES_DATA sel. 0xF8; used for GS register
 	/// CALL GATES
-	0x0000ec0100080000, // CG_CORE_TX_IRQ sel. 0x100 Call Gate for  RING 0
-
+	0x0000ec0100080000, // CG_CORE_TX_IRQ sel. 0x100 decs. for RING 0
+	0x0000ec0100080000, // CG_CORE_PRINTR sel. 0x108 decs. for RING 0
+	0x0000ec01002A0000, // CG_LIBS_TX_IRQ sel. 0x110 decs. for RING 2
+	0x0000cc03001A0000, // CG_DEVS_TTY_W  sel. 0x118 decs. for RING 1 for rpl 2
 };

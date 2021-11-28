@@ -26,6 +26,7 @@
 #include <tty.h>
 #include <io.h>
 #include <display.h>
+#include <rings.h>
 
 #define SCREEN_START 0xb8000
 #define SCREEN_END   0xc0000
@@ -45,7 +46,7 @@ static unsigned long lines=LINES,columns=COLUMNS;
 static unsigned long state=0;
 static unsigned long npar,par[NPAR];
 static unsigned long ques=0;
-unsigned char attr = FG_GREEN + BG_BLACK;
+unsigned char attr = FG_LGREEN + BG_BLACK;
 
 /*
  * this is what the terminal answers to a ESC-Z or csi0c
@@ -531,6 +532,53 @@ void write_con(struct tty_struct * tty)
 	set_cursor();
 }
 
+/*
+ * Console print ring is a function to print sys alerts from all rings
+ * of system.
+ */
+void con_printr(int ring, const char * buf){
+
+  unsigned char cur_attr = attr;
+  char c;
+
+  switch (ring){
+	case CORE: /* make fg light red like attention from core sys */
+	  attr = FG_LRED + BG_BLACK;
+	  break;
+	case DEV: /* make fg yellow like attention from devs sys */
+	  attr = FG_YELLOW + BG_BLACK;
+	  break;
+	case LIB: /* make fg light cyan like attention from libs sys */
+	  attr = FG_LCYAN + BG_BLACK;
+	  break;
+	case USR: /* make fg cyan like attention from users sys */
+	  attr = FG_CYAN + BG_BLACK;
+	  break;
+  }
+
+  while ((c = *(buf++))) {
+  	if (c == 10) {
+  		cr();
+  		lf();
+  		continue;
+  	}
+  	if (c == 13) {
+  		cr();
+  		continue;
+  	}
+  	if (x>=columns) {
+  		x -= columns;
+  		pos -= columns<<1;
+  		lf();
+  	}
+  	asm_char_write(c);
+  	pos += 2;
+  	x++;
+  }
+  attr = cur_attr; /* restore attr */
+  set_cursor();
+}
+
 void con_init(void)
 {
   struct tty_struct * tty;
@@ -539,7 +587,7 @@ void con_init(void)
 #ifdef GRUB2
   gotoxy(0,0);
 #else
-  gotoxy(0,12);
+  gotoxy(0,14); /* Skeep GRUB loading messages */
 #endif
 
   tty->write(tty); // Write initiate message

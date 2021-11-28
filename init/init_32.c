@@ -23,6 +23,9 @@ extern void activate_timer(void);
 extern void set_interrupts(void);
 extern void umask_tim_int();
 extern void sc_sched_req(void);
+extern void _printr(void);
+extern void libs_irq(void);
+extern void _tty_write(void);
 
 void after_pg_tables();
 void set_tss_desc(void);
@@ -58,6 +61,18 @@ __naked_ void  setup_descriptors(void) {
 
 	lea eax, sc_sched_req
 	mov edi, CG_CORE_TX_IRQ
+	call set_call_gate
+
+	lea eax, _printr
+	mov edi, CG_CORE_PRINTR
+	call set_call_gate
+
+	lea eax, libs_irq
+	mov edi, CG_LIBS_TX_IRQ
+	call set_call_gate
+
+	lea eax, _tty_write
+	mov edi, CG_DEVS_TTY_W
 	call set_call_gate
 
 	call setup_idt

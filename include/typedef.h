@@ -27,6 +27,7 @@ typedef void (*void_f_int)(u_int);
 #define __noret_    __attribute__((__noreturn__))
 #define __unusd_    __attribute__((unused))
 #define __weak_     __attribute__((weak))
+#define __inl_unusd_  __inlinea_ __unusd_ /* always_inline unsuded  */
 
 #define INT_SIZE 4
 

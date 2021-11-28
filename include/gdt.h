@@ -40,10 +40,10 @@ extern long long gdt[];
 #define RING3_DATA	0x40	// Ring 3 data decs
 
 /* Reserved */
-/*
-#define X 0x48
-#define X 0x50
-*/
+
+#define TSS_CORE 0x48
+#define LDT_CORE 0x50
+
 
 /* RING 1 TASKS */
 #define TSS_DEVS_IRQ 0x58
@@ -78,6 +78,9 @@ extern long long gdt[];
 
 /* Call gates */
 #define CG_CORE_TX_IRQ	0x100
+#define CG_CORE_PRINTR	0x108
+#define CG_LIBS_TX_IRQ	0x110
+#define CG_DEVS_TTY_W   0x118
 
 /// End GDT Descriptors Selectors
 

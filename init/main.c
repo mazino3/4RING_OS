@@ -15,9 +15,11 @@
 #include <gdt.h>
 #include <core/page.h>
 
+extern void core_init(long *);
 extern void devs_init(long *);
-//extern void libs_init(long *);
+extern void libs_init(long *);
 extern void users_init(long *);
+extern int printc(const char *fmt, ...);
 extern long * p_gdt;
 
 int main(void);
@@ -42,9 +44,11 @@ __asm{
 int main(void) {
 	
 	sys_init();
+	core_init(p_gdt);
 	devs_init(p_gdt);
-	// libs_init(p_gdt);
+	libs_init(p_gdt);
 	users_init(p_gdt);
+	printc("Hello from core (ring 0)!!!! gdt address = 0x%x \r\n",p_gdt);
 	enter_main_core_task();
 }
 

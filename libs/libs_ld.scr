@@ -1,0 +1,9 @@
+SECTIONS
+{
+  . = 0x7DC000;
+  .lib_txt		: { *(.text) }
+  .lib_rodata	: { *(.rodata) }
+  .lib_data		: { *(.data) }
+  .lib_bss		: { *(.bss) *(COMMON) }
+/* .comment	: { *(.comment) } */
+}

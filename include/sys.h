@@ -16,17 +16,6 @@
 
 #define MEM_LIMIT ((MEM_SIZE) / 0x1000) - 1 // 0x7ff
 
-/* DEFINES OF RINGS */
-#define RING0 0
-#define	RING1 1
-#define RING2 2
-#define RING3 3
-
-#define CORE RING0
-#define	DEV  RING1
-#define LIB  RING2
-#define USR  RING3
-
 #define CORE_SIZE 36*1024 	// 36Kb
 #define DEVS_SIZE 36*1024 	// 36Kb
 #define LIBS_SIZE 36*1024 	// 36Kb
@@ -42,8 +31,8 @@
 #define USERS_START (LIBS_START) - (USERS_SIZE)	// 7D3000
 //#define USERS_START 0x100000					// 1Mb
 
-#define SYS_START (USERS_START)  // not confusing, USERS_START is in SYS domain.
-#define SYS_SIZE (MEM_SIZE) - (USERS_START)
+#define SYS_START (LIBS_START)  // not confusing, USERS_START is in SYS domain.
+#define SYS_SIZE (MEM_SIZE) - (LIBS_START)
 
 #define DEVS_STACK (CORE_START) - 4
 #define LIBS_STACK (DEVS_START) - 4

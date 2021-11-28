@@ -24,11 +24,12 @@ typedef unsigned int size_t;
 #endif
 
 /*
- * I need here attributes always_inline and unused. The need for unused is
- * to avoid warning: [-Wunused-function] because when C files include this
- * header, static declarations of functions reasonably produce these warnings.
+ * I need here __inl_unusd_: the attributes always_inline and unused.
+ * The need for unused is to avoid warning: [-Wunused-function] because when
+ * C files include this header and do not use all of them, static declarations
+ * of functions reasonably produce these warnings, but static decl. preserves
+ * many binary copies of functions in each compiled file where will be included.
  */
-#define __inl_unusd_  __inlinea_ __unusd_ /* always_inline unsuded  */
 
 /// Copying functions
 
@@ -461,7 +462,7 @@ static __inl_unusd_ char * strstr(const char *str1,const char *str2)
   }
 }
 
-char * __strtok = NULL;
+extern char * __strtok;
 
 // Search String for Token
 /*

@@ -103,7 +103,7 @@ write_floppy:
 	dd if=tools/GRUB1/grub1.img of=/dev/sdX bs=512 # Be careful with the choice of device!!!
 	
 write_iso:
-	dd if=4ring_os.iso of=/dev/sdb # Be careful with the choice of device!!!
+	dd if=4ring_os.iso of=/dev/sdX # Be careful with the choice of device!!!
 		
 clean:
 	rm -f sys_out/* *.dum *.lnk 

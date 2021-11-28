@@ -6,4 +6,5 @@ SECTIONS
   .user_data		: { *(.data) }
   .user_bss		: { *(.bss) *(COMMON) }
 /* .comment	: { *(.comment) } */
+
 }

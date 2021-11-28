@@ -18,6 +18,7 @@
 #include <gates.h>
 #include <sched.h>
 #include <sys.h>
+#include <rings.h>
 
 #define REQ_BUF_SIZE 0xFF	// Request circular buffer size
 

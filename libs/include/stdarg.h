@@ -3,7 +3,7 @@
  *
  * stdarg.h
  *
- * The header defines a variable type va_list and three (4) macros which can be
+ * The header defines a variable type va_list and three macros which can be
  * used to get the arguments in a function when the number of arguments are
  * not known i.e. variable number of arguments.
  * A function of variable arguments is defined with the ellipsis (,...) at the
@@ -43,22 +43,6 @@ typedef char * va_list;
  */
 #define va_start(arg_obj, last_arg) \
   ((arg_obj) = ((va_list) &(last_arg) + __argsize(last_arg)))
-
-/*
- * The macro va_start_ptr initializes arg_obj variable to be used with the
- * va_arg and va_end macros. The ptr is the is the pointer of first known fixed
- * argument passed to the function.
- * This macro must be called before using va_arg and va_end.
- * I need this macro to pass an unknown number of arguments through protected
- * rings as a single pointer to their set or structure. In fact, I need this
- * when arguments are not on the local stack.
- * Params:
- * arg_obj −  is the object of va_list and it will hold the information
- * needed to retrieve the additional arguments with va_arg.
- * ptr − is the pointer of first known fixed argument passed to the function.
- */
-#define va_start_ptr(arg_obj, ptr) \
-  ((arg_obj) = ((va_list) (ptr) + __argsize(ptr)))
 
 /*
  * The macro type va_arg retrieves the next argument in the parameter list of

@@ -9,12 +9,12 @@
 #ifndef _TASK_H
 #define _TASK_H
 
-/* Sructure for setting stack pointers into tss structure */
+/* Structure for setting stack pointers into tss structure */
 struct stack_ptr {
 	long * end_stack;
 };
 
-#define NR_TASKS	0x04			// Max number of tasks
+//#define NR_TASKS	0x04			// Max number of tasks
 
 struct tss_struct {
 	long	back_link;				// 16 high bits zero 

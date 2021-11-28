@@ -61,6 +61,7 @@ unsigned char _v;			\
 })
 
 /* Intel syntax */
+//#define _nop() __asm__ {nop}
 #define _cli() __asm__ {cli}
 #define _sti() __asm__ {sti}
 #define int_ret() __asm__ {iretd} // Return from interrupt or from nested task

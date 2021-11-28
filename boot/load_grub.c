@@ -152,6 +152,9 @@ void load_mods(u_int info_struc) {
 		  case 'usrs':
 		  	out_addr = USERS_START;
 		  	break;
+		  case 'apps':
+			out_addr = 0x700000;
+		  	break;
 		  default:
 			out_addr = 0;
 		}

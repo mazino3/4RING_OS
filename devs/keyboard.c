@@ -339,7 +339,7 @@ __asm{
 __naked_ void Keyb_int(void) {
 __asm{
 	// nop // For debugging reasons on Bochs
-	mov dword ptr gs:[tss_devs_irq.eax], KEY_INT // Put irq request at task.eax
+	mov dword ptr gs:[tss_devs_irq.ebx], KEY_INT // Put irq request at task.eax
 	lcall TSS_DEVS_IRQ,0 // Call task to be nested where IF is clear
 	iretd                // Return from the nested task
   }

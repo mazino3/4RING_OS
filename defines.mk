@@ -18,12 +18,14 @@ CORE = sys_out/core
 DEVS = sys_out/devs
 LIBS = sys_out/libs
 USRS = sys_out/users
+APPS = sys_out/apps
 
 CORE_RAM = core
 DEVS_RAM = devs
 LIBS_RAM = libs
 USRS_RAM = usrs
 GDT_RAM = gdt_
+APPS_RAM = apps
 
 LOAD = sys_out/sys_load.o
 GDT = core/gdt_mem.bin
@@ -39,4 +41,5 @@ GRUB_PATH := $(BOOT_PATH)/grub
 
 # GRUB or GRUB2 : One of these must be defined!
 export BOOT_WAY = GRUB2
+
 
