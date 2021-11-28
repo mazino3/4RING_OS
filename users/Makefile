@@ -12,6 +12,7 @@ CFLAGS = -m32 -march=$(ARCH) -c -Wall -fomit-frame-pointer -finline-functions -n
 	-D$(BOOT_WAY)
 	
 LDFLAGS =
+LIBS = ../libs/lib_sys.a
 
 all: users.o
 
@@ -20,10 +21,10 @@ c.o:
 	
 OBJS =  main_task.o user.o
 	
-users.o: $(OBJS) 
-	$(LD) -T users_ld.scr -Map users.map -M $(OBJS) -o users.o > users.lnk
+users.o: $(OBJS)
+	$(LD) -T users_ld.scr -Map users.map -M $(OBJS) $(LIBS) -z muldefs  -o users.o > users.lnk
 	objcopy -O binary -R .note -R .comment users.o ../sys_out/users
-	#objdump -D -z --disassembler-options=intel-mnemonic users.o  > users.dum
+	objdump -D -z --disassembler-options=intel-mnemonic users.o  > users.dum
 
 clean:
 	rm -f *.o -v tmp*
@@ -34,6 +35,10 @@ dep:
 	cp tmp_make Makefile
 	
 # Dependencies
+
 main_task.o: main_task.c ../include/typedef.h ../include/gdt.h \
   ../include/ldt.h ../include/task.h ../include/sys.h \
-  ../include/config.h
+  ../include/config.h ../include/libs/lib_sys.h \
+  ../include/core/sys_calls.h ../include/sched.h ../include/io.h \
+  ../include/gas_regs.h ../include/rings.h
+user.o: user.c ../include/typedef.h ../include/users/user.h

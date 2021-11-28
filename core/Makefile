@@ -18,7 +18,7 @@ c.o:
 	$(CC) $(CFLAGS) -O \
 	-o $*.o $<
 	
-OBJS = gdt.o idt.o timer.o interrupts.o core_sched.o paging.o # tasks.o
+OBJS = gdt.o idt.o timer.o interrupts.o core_sched.o paging.o print_sys.o # tasks.o
 	
 core.o: $(OBJS)
 	$(LD) -r -o core.o $(OBJS)
@@ -39,8 +39,9 @@ dep:
 # Dependencies
 
 core_sched.o: core_sched.c ../include/typedef.h ../include/gdt.h \
-  ../include/gates.h ../include/sched.h ../include/sys.h \
-  ../include/config.h
+  ../include/gates.h ../include/sched.h ../include/io.h \
+  ../include/gas_regs.h ../include/sys.h ../include/config.h \
+  ../include/rings.h
 gdt.o: gdt.c ../include/typedef.h ../include/gdt.h
 gdt_mem.o: gdt_mem.c ../include/typedef.h ../include/gdt.h \
   ../include/sys.h ../include/config.h
@@ -49,6 +50,11 @@ idt.o: idt.c ../include/typedef.h ../include/gdt.h ../include/idt.h \
 interrupts.o: interrupts.c ../include/typedef.h ../include/idt.h \
   ../include/gates.h ../include/gdt.h ../include/io.h \
   ../include/gas_regs.h ../include/devs/hard_int.h
-paging.o: paging.c
+paging.o: paging.c ../include/typedef.h ../include/sys.h \
+  ../include/config.h ../include/gdt.h ../include/core/page.h
+print_sys.o: print_sys.c ../include/typedef.h ../include/gdt.h \
+  ../include/ldt.h ../include/sched.h ../include/io.h \
+  ../include/gas_regs.h ../include/stdarg.h ../include/rings.h \
+  ../include/task.h ../include/sys.h ../include/config.h
 timer.o: timer.c ../include/typedef.h ../include/gdt.h ../include/idt.h \
   ../include/gates.h

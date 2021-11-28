@@ -38,4 +38,5 @@ dep:
 
 init_32.o: init_32.c ../include/typedef.h ../include/task.h \
   ../include/gdt.h ../include/tty.h ../include/termios.h
-main.o: main.c ../include/typedef.h ../include/gdt.h
+main.o: main.c ../include/typedef.h ../include/sys.h ../include/config.h \
+  ../include/gdt.h ../include/core/page.h
