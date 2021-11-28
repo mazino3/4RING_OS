@@ -23,29 +23,6 @@ struct tty_queue {
 	char buf[TTY_BUF_SIZE];
 };
 
-#define _L_FLAG(tty,f)	((tty)->termios.c_lflag & f)
-#define _I_FLAG(tty,f)	((tty)->termios.c_iflag & f)
-#define _O_FLAG(tty,f)	((tty)->termios.c_oflag & f)
-
-#define L_CANON(tty)	_L_FLAG((tty),ICANON)
-#define L_ISIG(tty)		_L_FLAG((tty),ISIG)
-#define L_ECHO(tty)		_L_FLAG((tty),ECHO)
-#define L_ECHOE(tty)	_L_FLAG((tty),ECHOE)
-#define L_ECHOK(tty)	_L_FLAG((tty),ECHOK)
-#define L_ECHOCTL(tty)	_L_FLAG((tty),ECHOCTL)
-#define L_ECHOKE(tty)	_L_FLAG((tty),ECHOKE)
-
-#define I_UCLC(tty)	_I_FLAG((tty),IUCLC)
-#define I_NLCR(tty)	_I_FLAG((tty),INLCR)
-#define I_CRNL(tty)	_I_FLAG((tty),ICRNL)
-#define I_NOCR(tty)	_I_FLAG((tty),IGNCR)
-
-#define O_POST(tty)	_O_FLAG((tty),OPOST)
-#define O_NLCR(tty)	_O_FLAG((tty),ONLCR)
-#define O_CRNL(tty)	_O_FLAG((tty),OCRNL)
-#define O_NLRET(tty)	_O_FLAG((tty),ONLRET)
-#define O_LCUC(tty)	_O_FLAG((tty),OLCUC)
-
 #define INC(a) ((a) = ((a)+1) & (TTY_BUF_SIZE-1))
 #define DEC(a) ((a) = ((a)-1) & (TTY_BUF_SIZE-1))
 #define EMPTY(a) ((a).head == (a).tail)

@@ -11,8 +11,34 @@
  */
 
 #include <tty.h>
+#include <ctype.h>
+#include <gdt.h>
+#include <core/sys_calls.h>
 
 extern void write_con(struct tty_struct * tty);
+
+#define _L_FLAG(tty,f)	((tty)->termios.c_lflag & f)
+#define _I_FLAG(tty,f)	((tty)->termios.c_iflag & f)
+#define _O_FLAG(tty,f)	((tty)->termios.c_oflag & f)
+
+#define L_CANON(tty)	_L_FLAG((tty),ICANON)
+#define L_ISIG(tty)		_L_FLAG((tty),ISIG)
+#define L_ECHO(tty)		_L_FLAG((tty),ECHO)
+#define L_ECHOE(tty)	_L_FLAG((tty),ECHOE)
+#define L_ECHOK(tty)	_L_FLAG((tty),ECHOK)
+#define L_ECHOCTL(tty)	_L_FLAG((tty),ECHOCTL)
+#define L_ECHOKE(tty)	_L_FLAG((tty),ECHOKE)
+
+#define I_UCLC(tty)     _I_FLAG((tty),IUCLC)
+#define I_NLCR(tty)     _I_FLAG((tty),INLCR)
+#define I_CRNL(tty)     _I_FLAG((tty),ICRNL)
+#define I_NOCR(tty)     _I_FLAG((tty),IGNCR)
+
+#define O_POST(tty)     _O_FLAG((tty),OPOST)
+#define O_NLCR(tty)     _O_FLAG((tty),ONLCR)
+#define O_CRNL(tty)     _O_FLAG((tty),OCRNL)
+#define O_NLRET(tty)	_O_FLAG((tty),ONLRET)
+#define O_LCUC(tty)     _O_FLAG((tty),OLCUC)
 
 struct tty_struct tty_tbl[1] = {
 	{	{0,
@@ -25,7 +51,15 @@ struct tty_struct tty_tbl[1] = {
 		{0,0,0,0,""},	/* console read-queue */
 		// {0,0,0,0,""}, /* console write-queue (originally)  */
 		// Is changed for showing the initiate message.
-		{0,0xA,0,0,"4RING_OS\r\n"},	/* cons. write-queue (show init message) */
+		{0,527,0,0,"\r\n\
+   _   _    _____   _____  _   _   _____          ____    _____\r\n\
+  | | | |  |  __ \\ |_    || \\ | | / ____)        / __ \\  / ____)\r\n\
+  | |_| |_ | |__) |  | |  |  \\| || |  __   ver. | |  | || {___\r\n\
+  |___   _||  _  /   | |  | . ` || | |_ |       | |  | | \\__  \\\r\n\
+      | |  | | \\ \\  _| |_ | |\\  || |__| |  0.00 | |__| | ___)  }\r\n\
+      |_|  |_|  \\_||_____||_| \\_| \\_____| ______ \\____/ {_____/\r\n\
+                                         |______|\r\n\
+\r\n"},	/* cons. write-queue (show init message) */
 		{0,0,0,0,""}	/* console sec-queue */
 	}
 };
@@ -48,8 +82,6 @@ void prepare(struct tty_struct * tty)
 			else ;
 		else if (c==10 && I_NLCR(tty))
 			c=13;
-		//if (I_UCLC(tty))
-			//c=tolower(c);
 		if (L_CANON(tty)) {
 			if (c==ERASE_CHAR(tty)) {
 				if (EMPTY(tty->sec_q) ||
@@ -62,7 +94,7 @@ void prepare(struct tty_struct * tty)
 					PUTCH(127,tty->write_q);
 					tty->write(tty);
 				}
-				// DEC(tty->sec_q.head);
+				DEC(tty->sec_q.head); // pazi
 				continue;
 			}/*
 			if (c==STOP_CHAR(tty)) {
@@ -95,9 +127,58 @@ void prepare(struct tty_struct * tty)
 				PUTCH(c,tty->write_q);
 			 tty->write(tty);
 		}
-		//PUTCH(c,tty->sec_q);
+		PUTCH(c,tty->sec_q);
 	}
 }
+
+int tty_write(unsigned channel, char * buf, int nr)
+{
+	static int cr_flag=0;
+	struct tty_struct * tty;
+	char c, *b=buf;
+
+	if (channel>2 || nr<0) return -1;
+	tty = tty_tbl; // + channel;
+	while (nr>0) {
+		while (nr>0 && !FULL(tty->write_q)) {
+			c = *b;
+			if (O_POST(tty)) {
+				if (c=='\r' && O_CRNL(tty)){
+					c='\n';
+				}
+				if (c=='\n') {
+					PUTCH(13,tty->write_q);
+				}
+			}
+			b++; nr--;
+			cr_flag = 0;
+			PUTCH(c,tty->write_q);
+		}
+		tty->write(tty);
+	}
+	return (b-buf);
+}
+
+__naked_ void _tty_write(void){
+  __asm{
+	mov ecx, ds
+	push ecx
+	sub esp, 0x10
+	mov cx, DEVS_DATA
+	mov ds, ecx
+
+	push [esp + 0x24]
+	push [esp + 0x24]
+	push [esp + 0x24]
+	call tty_write
+
+	add esp, 28
+	pop ecx
+	mov ds, cx
+	retf 3 * 4
+  }
+}
+
 
 void tty_interrupt(int tty)
 {

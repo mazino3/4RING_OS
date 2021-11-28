@@ -13,7 +13,7 @@
 #include <task.h>
 #include <sched.h>
 #include <core/sys_calls.h>
-#include <string.h>
+#include <libs/lib_sys.h>
 
 extern int indx; /* Table index for sched_req_struc */
 extern struct sched_req_struc dev_sched_tbl[];
@@ -22,7 +22,6 @@ extern struct tss_struct tss_devs_irq;
 extern void get_key_int(void);
 
 void devs_irq_task(void);
-
 
 /* Table of interrupt functions at devs ring 1.
  * Here is place to put all main routines of all devices
@@ -38,8 +37,10 @@ static __inlinea_ void save_ptr(u_int ptr) {
 /* This is main task function for devs IRQ's at ring 1 */
 void devs_irq_task(void) {
 
+  /* Alert from first time initialization */
+  printr("Hello from devs (ring 1)!!! \r\n");
   for (;;) { /* This is important for the Task, like a unusual function */
-	  dev_int_ftbl[tss_devs_irq.eax](); // Call function from table index
+	  dev_int_ftbl[tss_devs_irq.ebx](); // Call function from table index
 	  save_ptr(core_sys_tx_irq()); // Send irq to core and save returned ptr
 	  int_ret(); // Return from interrupt
   }   /* endless loop for task */
