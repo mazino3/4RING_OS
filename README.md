@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="4RING_OS.png">
+<p align="left">
+  <img width="450" src="4RING_OS.png">
 </p>
 
 # [4RING_OS](https://www.isoux.org/blog/index.php?article2/4ring_os)
