@@ -17,12 +17,6 @@ Although this system would be strictly hardware-oriented and not portable, I sti
 - [Development and tools](https://www.isoux.org/blog/index.php?article5/development-and-tools)
 - [Pre-release 0.00](https://www.isoux.org/blog/article6/release-000)
 
-Screenshots:
-
-![Screenshot](4RING_OS.png) from BOCHS
-
-![Screenshot](ON_COMPAQ.jpg) from COMPAQ contura AERO
-
 ## Release 0.00
 Finally, after a few months, we came to the first tangible release.
 
@@ -34,6 +28,13 @@ It is certainly important to add some new application that proves the functional
 What you see, I also successfully tested on real 32-bit machines.
 
 In order to be able to use the BOCHS GUI debugger, I had to install an older version because the default version of BOCHS has a problem with the GUI debugger on UBUNTU 20.04. Sometimes the QEMU emulator works great and sometimes it crashes, which confused me, but when I checked the code on a real machine it always worked even though the QEMU showed the opposite. But my goal is not to adapt my code to the QEMU or other emulators, but to the real machines.</p>
+
+Screenshots:
+
+![Screenshot](4RING_OS.png) from BOCHS
+
+![Screenshot](ON_COMPAQ.jpg) from COMPAQ contura AERO
+
 <p>&#160;</p>
 <h2>&#160;</h2>
 <p>&#160;</p>
