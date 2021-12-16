@@ -23,7 +23,7 @@ Finally, after a few months, we came to the first tangible release.
 Printc and printr functions have been created to print system alerts and facilitate debugging from all rings. Printc (print core) for kernel at ring 0 and printr (print ring) for others rings. 
 Writing the printf function has opened up engagement on multiple fronts. First I had to start writing a small libc library specific to my environment (4libc) to be able to implement the printf function. I then swiped the function through three rings until the contents were printed on the monitor. I had to learn a lot of mistakes ... 
 
-The basic functionality has been achieved, and the example of this function shows the interaction from user protection rings through libraries to devices (from ring 3 through 2 to 1).
+The basic functionality has been achieved, and the example of this function shows the interaction from user protection ring through libraries to devices (from ring 3 through 2 to 1).
 Finally, I wrote a hello world application that loads into ram memory and runs after system initialization, to show if this works.
 
 Since I plan for each ring to have its own task scheduler, perhaps this approach of gradual progress from the user's request to the OS core itself (to the ring 0 or another privileged ring) can provide the CPU with better control and insight for Preemption? Also, atomizing a process when I run it through rings (where program execution is shifted to a task for that ring) introduces layered isolation and reduces the stack size of the calling process. If I success can prove this on a slow and weak i386/i486 platform, then will implementation on stronger processors only progress more with success.
