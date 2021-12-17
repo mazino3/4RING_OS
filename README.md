@@ -1,6 +1,3 @@
-<p align="left">
-  <img width="650" src="4RING_OS.png">
-</p>
 
 # [4RING_OS](https://www.isoux.org/blog/index.php?article2/4ring_os)
 
@@ -14,9 +11,12 @@ Hobby operating system for Intel processors from 386 and up. Engaged on all 4 ri
 
 Screenshots:
 
-![Screenshot](4RING_OS.png) from BOCHS
+from BOCHS
+![Screenshot](4RING_OS.png)
 
-![Screenshot](ON_COMPAQ.jpg) from COMPAQ contura AERO
+
+from COMPAQ contura AERO
+![Screenshot](ON_COMPAQ.jpg)
 
 <p>&#160;</p>
 <h2>&#160;</h2>
