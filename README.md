@@ -11,11 +11,11 @@ Hobby operating system for Intel processors from 386 and up. Engaged on all 4 ri
 
 Screenshots:
 
-from BOCHS
+From BOCHS
 ![Screenshot](4RING_OS.png)
 
 
-from COMPAQ contura AERO
+From COMPAQ Contura AERO
 ![Screenshot](ON_COMPAQ.jpg)
 
 <p>&#160;</p>
