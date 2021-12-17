@@ -3,7 +3,7 @@
 
 Hobby operating system for Intel processors from 386 and up. Engaged on all 4 protecting rings with call gates, paging, segmentation, and almost all hardware capabilities provided by this generation of processors.
 
-An experimental attempt to demonstrate the functionality of the great hardware advantage of intel processors:
+An experimental attempt to demonstrate the functionality of the great hardware advantage of Intel processors:
 ## 4 protecting rings!
 
 - [Motivation](https://www.isoux.org/blog/index.php?article3/motivation)
