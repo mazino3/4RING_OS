@@ -29,10 +29,10 @@ u_char req_buf[REQ_BUF_SIZE] = {0};
  * which contains the schedule procedures at less privileged rings
  */
 u_short ring_sels[] = {	/* indexed rings selectors for schedules tasks */
-	TSS_MAIN_TASK, //TSS_CORE_SEL
+	TSS_MAIN_TASK,
 	TSS_DEVS_SCHED,
 	TSS_LIBS_SCHED,
-	TSS_MAIN_TASK //TSS_CORE_SEL //TSS_USERS_SCHED
+	TSS_MAIN_TASK           // TSS_USERS_SCHED
 };
 
 /* fword argument (6 bytes)  for far call = lcall */
@@ -59,40 +59,40 @@ unsigned char cur_ring_task = 0;
  */
 __naked_ void sc_sched_req(void) {
 __asm{
-	  mov cx, ds					// save ds from the calling ring
-	  xor eax,eax
-	  mov eax, dword ptr[esp+0x8]	// get input arg from caller
-	  mov edx, eax					// save arg at edx
-	  mov ax, CORE_DATA
-	  mov ds, ax					// set ds to core data structure
-	  cmp edx, DECL_IRQ				// if arg is for register irq request
-	jne clear						// else arg is for clear CLR_IRQ
-	  mov bx,cx						// then get cpl
-	  and bx,3
-	  mov al, byte ptr [sched_ptrs.in_cur_p]
-	  mov req_buf[0+eax*1], bl		// store cpl in circular buffer
-	  mov ebp,[esp+0xc]				// get callers cur stack ptr
-	  mov byte ptr es:[ebp+4],al	// store like out in_cur_p on callers stack
-	  inc ax
-	  cmp ax, REQ_BUF_SIZE			// if circular buffer overflow
+	mov cx, ds                  // save ds from the calling ring
+	xor eax,eax
+	mov eax, dword ptr[esp+0x8] // get input arg from caller
+	mov edx, eax                // save arg at edx
+	mov ax, CORE_DATA
+	mov ds, ax                  // set ds to core data structure
+	cmp edx, DECL_IRQ           // if arg is for register irq request
+	jne clear                   // else arg is for clear CLR_IRQ
+	mov bx,cx                   // then get cpl
+	and bx,3
+	mov al, byte ptr [sched_ptrs.in_cur_p] // get curent input ptr
+	mov req_buf[0+eax*1], bl     // store cpl in circular buffer
+	mov ebp,[esp+0xc]            // get callers cur stack ptr
+	mov byte ptr es:[ebp+4],al   // store in_cur_p on callers stack = ret. arg
+	inc ax
+	cmp ax, REQ_BUF_SIZE         // if circular buffer overflow
 	jne n1
-	  mov ax,0						// then start again from 0
+	mov ax,0                     // then start again from 0
 	n1:
-	  mov byte ptr [sched_ptrs.in_cur_p], al // increment input cursor ptr
-	  jmp short exit
-	clear:							// CLR_IRQ
-	  mov bl,0
-	  mov byte ptr req_buf[0+edx*1],bl
-	  mov al, byte ptr [sched_ptrs.out_cur_p]
-	  inc al						// increment sched_ptrs.out_cur_p
-	  cmp al, REQ_BUF_SIZE
-	  jne n2
-	  mov al,0
-	  n2:
-	  mov byte ptr [sched_ptrs.out_cur_p], al
+	mov byte ptr [sched_ptrs.in_cur_p], al // increment input cursor ptr
+	jmp short exit
+	clear:                       // CLR_IRQ
+	mov bl,0
+	mov byte ptr req_buf[0+edx*1],bl
+	mov al, byte ptr [sched_ptrs.out_cur_p]
+	inc al                       // increment sched_ptrs.out_cur_p
+	cmp al, REQ_BUF_SIZE
+	jne n2
+	mov al,0
+	n2:
+	mov byte ptr [sched_ptrs.out_cur_p], al // store curent out ptr
 	exit:
-	  mov ds, cx					// restore ds from caled ring
-	retf 4							// ret from call gate with out arg (4 byte)
+	mov ds, cx                    // restore ds from caled ring
+	retf 4                        // ret from call gate with out arg (4 byte)
   }
 }
 

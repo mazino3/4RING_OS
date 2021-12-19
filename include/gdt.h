@@ -39,12 +39,9 @@ extern long long gdt[];
 #define RING3_CODE	0x38	// Ring 3 code decs
 #define RING3_DATA	0x40	// Ring 3 data decs
 
-/* Reserved */
-
+/* RING 0 TASKS */
 #define TSS_CORE 0x48
 #define LDT_CORE 0x50
-
-
 /* RING 1 TASKS */
 #define TSS_DEVS_IRQ 0x58
 #define LDT_DEVS_IRQ 0x60
