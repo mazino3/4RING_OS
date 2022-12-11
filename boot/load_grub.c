@@ -32,7 +32,7 @@ u_long multi_head [] = {
 };
 
 l_long multib_gdt[] = {
-	0x0000000000000000, // NULL descriptor
+	0x0000000000000000,	// NULL descriptor
 	0x00c09a00000007ff,	// sel. 0x08 CODE 8Mb 0x08, base = 0
 	0x00c09200000007ff	// sel. 0x10 DATA 8Mb
 };
@@ -40,7 +40,7 @@ l_long multib_gdt[] = {
 struct gdt_opcode_p {
 	u_short size;		// GDT_MAX_ENT entries
 	u_int * gdt;		// ptr of gdt table + core base
-} mb_gdt_opc = { 0x7ff, ((u_int *) & multib_gdt[0]) };
+} mb_gdt_opc = { 3*8, ((u_int *) & multib_gdt[0]) };
 
 struct idt_opcode_p {
 	u_short size;		// 256 entries

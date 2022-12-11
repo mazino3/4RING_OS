@@ -19,7 +19,7 @@
 #include <sys.h>
 
 __attribute__((section(".gdt_data")))
-l_long gdt[GDT_ENTRIES] = {
+l_long gdt[ENTR_SIZE] = {
 	0x0000000000000000, // NULL descriptor, DUMMY
 	/// CODE & DATA descriptors for general 4 RINGS
 	// RING 0

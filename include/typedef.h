@@ -20,6 +20,7 @@ typedef long long  		l_long;
 
 typedef void (*void_func)(void);
 typedef void (*void_f_int)(u_int);
+typedef u_int (*int_f_int)(u_int);
 
 #define NULL ((void *)0)
 #define __naked_    __declspec(naked)

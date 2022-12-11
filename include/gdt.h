@@ -19,6 +19,7 @@
 extern long long gdt[];
 
 #define GDT_ENTRIES	4608	// number of entries (max is 8192)
+#define ENTR_SIZE	(GDT_ENTRIES *8)
 
 /// GDT Descriptors Selectors
 #define DPL_RING0	0
@@ -26,9 +27,9 @@ extern long long gdt[];
 #define DPL_RING2	2
 #define DPL_RING3	3
 
-#define CORE_BASE 0x00
-#define CORE_CODE 0x08		// Ring 0 code desc
-#define CORE_DATA 0x10		// Ring 0 data desc
+#define CORE_BASE	0x00
+#define CORE_CODE	0x08	// Ring 0 code desc
+#define CORE_DATA	0x10	// Ring 0 data desc
 
 #define RING1_CODE	0x18	// Ring 1 code decs
 #define RING1_DATA	0x20	// Ring 1 data decs
@@ -40,8 +41,8 @@ extern long long gdt[];
 #define RING3_DATA	0x40	// Ring 3 data decs
 
 /* RING 0 TASKS */
-#define TSS_CORE 0x48
-#define LDT_CORE 0x50
+#define TSS_CORE	0x48
+#define LDT_CORE	0x50
 /* RING 1 TASKS */
 #define TSS_DEVS_IRQ 0x58
 #define LDT_DEVS_IRQ 0x60

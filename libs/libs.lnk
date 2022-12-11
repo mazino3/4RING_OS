@@ -1,0 +1,154 @@
+Archive member included to satisfy reference by file (symbol)
+
+lib_sys.a(printr.o)           libs_irq.o (printr)
+
+Allocating common symbols
+Common symbol       size              file
+
+stack_libs_irq_core
+                    0x110             libs_task.o
+stack_libs_irq_devs
+                    0x110             libs_task.o
+stack_libs_irq      0x110             libs_task.o
+
+Discarded input sections
+
+ .llvm_addrsig  0x0000000000000000        0x3 libs_irq.o
+ .llvm_addrsig  0x0000000000000000        0xc libs_task.o
+ .llvm_addrsig  0x0000000000000000        0x2 libs_sched.o
+ .llvm_addrsig  0x0000000000000000        0x0 ctype.o
+ .llvm_addrsig  0x0000000000000000        0x2 vsprintf.o
+ .llvm_addrsig  0x0000000000000000        0x1 glob_table.o
+ .llvm_addrsig  0x0000000000000000        0x4 4libc/4libc.o
+ .llvm_addrsig  0x0000000000000000        0x0 lib_sys.a(printr.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x00000000007dc000                . = 0x7dc000
+
+.lib_txt        0x00000000007dc000      0xd97
+ *(.text)
+ .text          0x00000000007dc000       0x7f libs_irq.o
+                0x00000000007dc000                libs_irq_task
+                0x00000000007dc050                libs_irq
+ *fill*         0x00000000007dc07f        0x1 
+ .text          0x00000000007dc080       0xb0 libs_task.o
+                0x00000000007dc080                set_libs_tasks
+                0x00000000007dc0c0                set_libs_tss_desc
+                0x00000000007dc0d0                set_libs_desc
+                0x00000000007dc110                libs_init
+ .text          0x00000000007dc130       0xb9 libs_sched.o
+                0x00000000007dc130                libs_sched_task
+ *fill*         0x00000000007dc1e9        0x3 
+ .text          0x00000000007dc1ec        0x0 ctype.o
+ *fill*         0x00000000007dc1ec        0x4 
+ .text          0x00000000007dc1f0      0xaea vsprintf.o
+                0x00000000007dc1f0                vsprintf
+ *fill*         0x00000000007dccda        0x2 
+ .text          0x00000000007dccdc        0x0 glob_table.o
+ *fill*         0x00000000007dccdc        0x4 
+ .text          0x00000000007dcce0       0x8c 4libc/4libc.o
+                0x00000000007dcce0                _printf
+                0x00000000007dcd60                _printf_
+ *fill*         0x00000000007dcd6c        0x4 
+ .text          0x00000000007dcd70       0x27 lib_sys.a(printr.o)
+                0x00000000007dcd70                printr
+
+.iplt           0x00000000007dcd97        0x0
+ .iplt          0x00000000007dcd97        0x0 libs_irq.o
+
+.lib_rodata     0x00000000007dcd98      0x1c8
+ *(.rodata)
+ .rodata        0x00000000007dcd98      0x100 ctype.o
+                0x00000000007dcd98                _ctype
+ .rodata        0x00000000007dce98       0xc8 vsprintf.o
+
+.rodata.str1.1  0x00000000007dcf60       0x6a
+ .rodata.str1.1
+                0x00000000007dcf60       0x20 libs_irq.o
+ .rodata.str1.1
+                0x00000000007dcf80       0x4a vsprintf.o
+
+.rel.dyn        0x00000000007dcfcc        0x0
+ .rel.got       0x00000000007dcfcc        0x0 libs_irq.o
+ .rel.iplt      0x00000000007dcfcc        0x0 libs_irq.o
+ .rel.data      0x00000000007dcfcc        0x0 libs_irq.o
+
+.lib_data       0x00000000007dcfd0       0x98
+ *(.data)
+ .data          0x00000000007dcfd0       0x84 libs_task.o
+                0x00000000007dcfd0                ldt_irq
+                0x00000000007dcfe0                tss_libs_irq
+                0x00000000007dd048                p_stack_irq
+                0x00000000007dd04c                p_stack_irq_krn
+                0x00000000007dd050                p_stack_irq_devs
+ .data          0x00000000007dd054        0xc glob_table.o
+                0x00000000007dd054                libs_ftbl
+ .data          0x00000000007dd060        0x8 4libc/4libc.o
+                0x00000000007dd060                libc_ftbl
+
+.got            0x00000000007dd068        0x0
+ .got           0x00000000007dd068        0x0 libs_irq.o
+
+.got.plt        0x00000000007dd068        0x0
+ .got.plt       0x00000000007dd068        0x0 libs_irq.o
+
+.igot.plt       0x00000000007dd068        0x0
+ .igot.plt      0x00000000007dd068        0x0 libs_irq.o
+
+.lib_bss        0x00000000007dd068     0x102c
+ *(.bss)
+ .bss           0x00000000007dd068      0x8fb libs_sched.o
+                0x00000000007dd068                i_lib
+                0x00000000007dd06c                lib_sched_tbl
+ .bss           0x00000000007dd963      0x400 4libc/4libc.o
+ *(COMMON)
+ *fill*         0x00000000007ddd63        0x1 
+ COMMON         0x00000000007ddd64      0x330 libs_task.o
+                0x00000000007ddd64                stack_libs_irq_core
+                0x00000000007dde74                stack_libs_irq_devs
+                0x00000000007ddf84                stack_libs_irq
+LOAD libs_irq.o
+LOAD libs_task.o
+LOAD libs_sched.o
+LOAD ctype.o
+LOAD vsprintf.o
+LOAD glob_table.o
+LOAD 4libc/4libc.o
+LOAD lib_sys.a
+OUTPUT(libs.o elf32-i386)
+
+.comment        0x0000000000000000       0x1f
+ .comment       0x0000000000000000       0x1f libs_irq.o
+                                         0x20 (size before relaxing)
+ .comment       0x000000000000001f       0x20 libs_task.o
+ .comment       0x000000000000001f       0x20 libs_sched.o
+ .comment       0x000000000000001f       0x20 ctype.o
+ .comment       0x000000000000001f       0x20 vsprintf.o
+ .comment       0x000000000000001f       0x20 glob_table.o
+ .comment       0x000000000000001f       0x40 4libc/4libc.o
+ .comment       0x000000000000001f       0x20 lib_sys.a(printr.o)
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 libs_irq.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 libs_task.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 libs_sched.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 ctype.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 vsprintf.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 glob_table.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 4libc/4libc.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 lib_sys.a(printr.o)

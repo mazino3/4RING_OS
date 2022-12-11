@@ -34,7 +34,7 @@ void libs_irq_task(void) { // Interrupt is off by default for while...
 
   u_int register major, minor;
   /* Alert from first time initialization */
-  printr("Hello from libs (ring 2)!! \r\n");
+  printr("Hello from libsss (ring 2)!! \r\n");
   for (;;) {
 	  //while (tss_libs_irq.ebx){
 		/*decode indexed lib(major) and func table in it(minor) from input arg */
@@ -42,12 +42,12 @@ void libs_irq_task(void) { // Interrupt is off by default for while...
 		minor = (major & 0xFFFF); // extract major and minor
 		/* Call decoded minor = lib function (like printf) from decoded major =
 		 * library (like libc) from indexed function tables. */
-		//((void_func*)libs_ftbl[major>>16])[minor]();
-		lib_sched_tbl[i_lib].func = ((void_f_int*)libs_ftbl[major>>16])[minor];
-		lib_sched_tbl[i_lib].value = tss_libs_irq.edx;
+		((void_func*)libs_ftbl[major>>16])[minor]();
+		///lib_sched_tbl[i_lib].func = ((void_f_int*)libs_ftbl[major>>16])[minor];
+		///lib_sched_tbl[i_lib].value = tss_libs_irq.edx;
 		//tss_libs_sched.edx = tss_libs_irq.edx;
-		save_lib_ptr(core_sys_tx_irq());
-		tss_libs_irq.eax = -2;
+		///save_lib_ptr(core_sys_tx_irq());
+		///tss_libs_irq.eax = -2;
 		int_ret();
 
   }
@@ -62,18 +62,18 @@ void libs_irq_task(void) { // Interrupt is off by default for while...
 __naked_ void libs_irq(void){
   __asm{
 	push ebx
-	mov ebx, LIBS_DATA         // adjust ds to ring 2
+	mov ebx, LIBS_DATA			// adjust ds to ring 2
 	mov ds, bx
-	mov tss_libs_irq.ebx, eax  // save coded input argument at tss-structure.
+	mov tss_libs_irq.ebx, eax	// save coded input argument at tss-structure.
 	mov eax, [esp+12]
-	mov tss_libs_irq.edx, eax  // save the stack where is input  arguments
+	mov tss_libs_irq.edx, eax	// save the stack where is input  arguments
 	// jump to ring 2 main irq function defined in GDT descriptor
-	lcall TSS_LIBS_IRQ,0       // enter libs_irq_task (switch from ring 3 to 2)!
+	lcall TSS_LIBS_IRQ,0		// enter libs_irq_task (switch from ring 3 to 2)!
 	// prepare return from call gate
-	loop: test tss_libs_irq.eax,-2
-	jp loop
-	mov eax, tss_libs_irq.eax  // return arg
-  	mov ebx, TASK_DATA         // adjust ds to the user space ring 3
+	///loop: test tss_libs_irq.eax,-2
+	///jp loop
+	mov eax, tss_libs_irq.eax	// return arg
+  	mov ebx, TASK_DATA			// adjust ds to the user space ring 3
   	mov ds, bx
 	pop ebx
   	retf 4

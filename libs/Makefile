@@ -7,8 +7,12 @@
 
 include ../defines.mk
 
+#INCL_SYS = ../../include
+#INCL = include/
+# -I $(INCL_SYS) -I $(INCL) 
+
 CFLAGS = -m32 -march=$(ARCH) -c -Wall -fomit-frame-pointer -finline-functions -nostdinc \
-	-fasm-blocks -masm=intel -fasm -fno-builtin -I ../include -fdeclspec  -fpack-struct \
+	-fasm-blocks -masm=intel -fasm -fno-builtin  -I ../include -fdeclspec  -fpack-struct \
 	-D$(BOOT_WAY)
 	
 LDFLAGS =
@@ -18,7 +22,7 @@ all: 4libc/4libc lib_sys.a libs.o
 c.o:
 	$(CC) $(CFLAGS) -O -o $*.o $<
 	
-OBJS = libs_irq.o libs_task.o ctype.o vsprintf.o glob_table.o 4libc/4libc.o
+OBJS = libs_irq.o libs_task.o libs_sched.o ctype.o vsprintf.o glob_table.o 4libc/4libc.o
 STATIC = printr.o
 	
 libs.o: $(OBJS) 
