@@ -68,51 +68,51 @@ Linker script and memory map
                 0x00000000007dcd98                _ctype
  .rodata        0x00000000007dce98       0xc8 vsprintf.o
 
-.rodata.str1.1  0x00000000007dcf60       0x6a
+.rodata.str1.1  0x00000000007dcf60       0x67
  .rodata.str1.1
-                0x00000000007dcf60       0x20 libs_irq.o
+                0x00000000007dcf60       0x1d libs_irq.o
  .rodata.str1.1
-                0x00000000007dcf80       0x4a vsprintf.o
+                0x00000000007dcf7d       0x4a vsprintf.o
 
-.rel.dyn        0x00000000007dcfcc        0x0
- .rel.got       0x00000000007dcfcc        0x0 libs_irq.o
- .rel.iplt      0x00000000007dcfcc        0x0 libs_irq.o
- .rel.data      0x00000000007dcfcc        0x0 libs_irq.o
+.rel.dyn        0x00000000007dcfc8        0x0
+ .rel.got       0x00000000007dcfc8        0x0 libs_irq.o
+ .rel.iplt      0x00000000007dcfc8        0x0 libs_irq.o
+ .rel.data      0x00000000007dcfc8        0x0 libs_irq.o
 
-.lib_data       0x00000000007dcfd0       0x98
+.lib_data       0x00000000007dcfc8       0x98
  *(.data)
- .data          0x00000000007dcfd0       0x84 libs_task.o
-                0x00000000007dcfd0                ldt_irq
-                0x00000000007dcfe0                tss_libs_irq
-                0x00000000007dd048                p_stack_irq
-                0x00000000007dd04c                p_stack_irq_krn
-                0x00000000007dd050                p_stack_irq_devs
- .data          0x00000000007dd054        0xc glob_table.o
-                0x00000000007dd054                libs_ftbl
- .data          0x00000000007dd060        0x8 4libc/4libc.o
-                0x00000000007dd060                libc_ftbl
+ .data          0x00000000007dcfc8       0x84 libs_task.o
+                0x00000000007dcfc8                ldt_irq
+                0x00000000007dcfd8                tss_libs_irq
+                0x00000000007dd040                p_stack_irq
+                0x00000000007dd044                p_stack_irq_krn
+                0x00000000007dd048                p_stack_irq_devs
+ .data          0x00000000007dd04c        0xc glob_table.o
+                0x00000000007dd04c                libs_ftbl
+ .data          0x00000000007dd058        0x8 4libc/4libc.o
+                0x00000000007dd058                libc_ftbl
 
-.got            0x00000000007dd068        0x0
- .got           0x00000000007dd068        0x0 libs_irq.o
+.got            0x00000000007dd060        0x0
+ .got           0x00000000007dd060        0x0 libs_irq.o
 
-.got.plt        0x00000000007dd068        0x0
- .got.plt       0x00000000007dd068        0x0 libs_irq.o
+.got.plt        0x00000000007dd060        0x0
+ .got.plt       0x00000000007dd060        0x0 libs_irq.o
 
-.igot.plt       0x00000000007dd068        0x0
- .igot.plt      0x00000000007dd068        0x0 libs_irq.o
+.igot.plt       0x00000000007dd060        0x0
+ .igot.plt      0x00000000007dd060        0x0 libs_irq.o
 
-.lib_bss        0x00000000007dd068     0x102c
+.lib_bss        0x00000000007dd060     0x102c
  *(.bss)
- .bss           0x00000000007dd068      0x8fb libs_sched.o
-                0x00000000007dd068                i_lib
-                0x00000000007dd06c                lib_sched_tbl
- .bss           0x00000000007dd963      0x400 4libc/4libc.o
+ .bss           0x00000000007dd060      0x8fb libs_sched.o
+                0x00000000007dd060                i_lib
+                0x00000000007dd064                lib_sched_tbl
+ .bss           0x00000000007dd95b      0x400 4libc/4libc.o
  *(COMMON)
- *fill*         0x00000000007ddd63        0x1 
- COMMON         0x00000000007ddd64      0x330 libs_task.o
-                0x00000000007ddd64                stack_libs_irq_core
-                0x00000000007dde74                stack_libs_irq_devs
-                0x00000000007ddf84                stack_libs_irq
+ *fill*         0x00000000007ddd5b        0x1 
+ COMMON         0x00000000007ddd5c      0x330 libs_task.o
+                0x00000000007ddd5c                stack_libs_irq_core
+                0x00000000007dde6c                stack_libs_irq_devs
+                0x00000000007ddf7c                stack_libs_irq
 LOAD libs_irq.o
 LOAD libs_task.o
 LOAD libs_sched.o

@@ -34,7 +34,7 @@ void libs_irq_task(void) { // Interrupt is off by default for while...
 
   u_int register major, minor;
   /* Alert from first time initialization */
-  printr("Hello from libsss (ring 2)!! \r\n");
+  printr("Hello from lib (ring 2)!! \r\n");
   for (;;) {
 	  //while (tss_libs_irq.ebx){
 		/*decode indexed lib(major) and func table in it(minor) from input arg */
